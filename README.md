@@ -1,8 +1,10 @@
-# seproject-team-template
+# Itorerut Project
 
 A template repository with wiki for a team project at JCE's software engineering course
 
-![project logo (this one is taken from basecamp)](http://klipfolio.com/sites/default/files/integrations/basecamp.png)
+[![Gitter](https://badges.gitter.im/talgarusi/Itorerut-Project.svg)](https://gitter.im/talgarusi/Itorerut-Project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+![project logo (this one is taken from basecamp)](https://raw.githubusercontent.com/talgarusi/Itorerut-Project/master/logo.jpg)
 
 ## Please visit our [live application](https://demo.reactstarterkit.com/)
 - Alright, currently only a landing page...
