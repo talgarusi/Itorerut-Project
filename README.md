@@ -1,15 +1,14 @@
-# Welcome to Itorerut Project
+# Welcome To Itorerut Project
 
 ![project logo](https://raw.githubusercontent.com/talgarusi/Itorerut-Project/master/logo.jpg)
 
-## About Project
+## About The Project
 The goal of this project is to help Itorerut - a social organization in Jerusalem, Israel by developing a web - application by their demands and specification.
 keep Jerusalem sociality united and connected.
 
 ## Please visit our [live application](https://demo.reactstarterkit.com/)
-- Alright, currently only a landing page...
 
-## Chat room
+## Chat Room
 [![Gitter](https://badges.gitter.im/talgarusi/Itorerut-Project.svg)](https://gitter.im/talgarusi/Itorerut-Project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Disclaimer
@@ -22,13 +21,7 @@ Please visit our wiki for furthur project info:
 ### [Team Page](../../wiki/team)
 
 ### Project Documents
-- [organization facebook page] (https://www.facebook.com/InJerusalem/?fref=ts)
+- [Organization Facebook Page] (https://www.facebook.com/InJerusalem/?fref=ts)
 - [Project Idea](docs/idea.pdf) ([Presentation](docs/idea-slides.pdf))
 - [Project Inception](../../wiki/inception)
 - [Software Requirements Specification](../../wiki/srs)
-- [Software Design Specification](../../wiki/sds)
-
-
-
-
-
