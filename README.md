@@ -25,4 +25,4 @@ Please visit our wiki for furthur project info:
 ### Project Documents
 - [Organization Facebook Page] (https://www.facebook.com/InJerusalem/?fref=ts)
 - [Project Idea](docs/idea.pdf) ([Presentation](docs/idea-slides.pdf))
-- [Software Requirements Specification](../../wiki/srs.docx)
+- [Software Requirements Specification](../../srs.docx)
