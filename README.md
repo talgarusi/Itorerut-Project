@@ -1,5 +1,7 @@
 # seproject-team-template
 
+[![Join the chat at https://gitter.im/talgarusi/Itorerut-Project](https://badges.gitter.im/talgarusi/Itorerut-Project.svg)](https://gitter.im/talgarusi/Itorerut-Project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A template repository with wiki for a team project at JCE's software engineering course
 
 ![project logo (this one is taken from basecamp)](http://klipfolio.com/sites/default/files/integrations/basecamp.png)
