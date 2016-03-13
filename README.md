@@ -20,8 +20,9 @@ Please visit our wiki for furthur project info:
 
 ### [Team Page](../../wiki/team)
 
+### [Team Page](https://github.com/talgarusi/Itorerut-Project/wiki/Project-Inception-Planning-Page)
+
 ### Project Documents
 - [Organization Facebook Page] (https://www.facebook.com/InJerusalem/?fref=ts)
 - [Project Idea](docs/idea.pdf) ([Presentation](docs/idea-slides.pdf))
-- [Project Inception](../../wiki/inception)
 - [Software Requirements Specification](../../wiki/srs)
