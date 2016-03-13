@@ -1,10 +1,10 @@
 # Itorerut Project
 
-A template repository with wiki for a team project at JCE's software engineering course
-
 [![Gitter](https://badges.gitter.im/talgarusi/Itorerut-Project.svg)](https://gitter.im/talgarusi/Itorerut-Project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-![project logo (this one is taken from basecamp)](https://raw.githubusercontent.com/talgarusi/Itorerut-Project/master/logo.jpg)
+![project logo](https://raw.githubusercontent.com/talgarusi/Itorerut-Project/master/logo.jpg)
+
+This project is part of [Software engineering course](http://jce-il.github.io/se-class16b/index.html) at [JCE - Azrieli College of Engineering] (http://www.jce.ac.il/)
 
 ## Please visit our [live application](https://demo.reactstarterkit.com/)
 - Alright, currently only a landing page...
