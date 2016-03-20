@@ -25,4 +25,6 @@ Please visit our wiki for furthur project info:
 ### Project Documents
 - [Organization Facebook Page] (https://www.facebook.com/InJerusalem/?fref=ts)
 - [Project Idea](docs/idea.pdf) ([Presentation](https://drive.google.com/file/d/0B86tGEa84ZqzN0VZemVfYkxsaTJTTnkwVjhpX0xEcUlrTWFZ/view))
-- [Software Requirements Specification](https://drive.google.com/file/d/0B86tGEa84ZqzbVhpaF81UUZfODd4cno3ajVwdG9scmZjdzZr/view)
+- [Project idea Document](https://drive.google.com/file/d/0B86tGEa84ZqzbVhpaF81UUZfODd4cno3ajVwdG9scmZjdzZr/view)
+- [Software Requirements Specification](https://github.com/talgarusi/Itorerut-Project/wiki/SRS) 
+          
