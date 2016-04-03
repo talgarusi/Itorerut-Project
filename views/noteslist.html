@@ -1,0 +1,63 @@
+<div class="col-sm-3">
+    <ul class="list-group">
+        <li class="clicking-mouse list-group-item" ng-click="newList()">
+        <span class="glyphicon glyphicon-plus gi-plus-17x"></span>
+        &nbsp;New List
+        </li>
+        <li class="clicking-mouse list-group-item" ng-repeat="list in lists" ng-click="show(list)" ng-class="{ 'active': list===currentList }">
+        <span class="badge">{{ list | numofTasks }}</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ list['name'] }}
+        </li>
+    </ul>
+</div>
+<div class="col-sm-9" ng-if="currentList">
+    <div class="row col-sm-12">
+        <div class="col-sm-12">
+            <div class="col-sm-5">
+                <h3>
+                    <div contenteditable="true" ng-model="currentList['name']">{ currentList['name'] }}</div>
+                </h3>
+            </div>
+            <div class="col-sm-7 marign-top">
+                    <span class="badge pull-left">{{ currentList | numofTasks }}</span>
+                    <span ng-click="removeList()" class="clicking-mouse pull-right glyphicon glyphicon-trash gi-trash-20x"></span>
+            </div>
+            
+        </div>
+        
+        
+        <div class="col-sm-12 marign-top">
+             <div class="col-sm-6 input-group">
+                <input ng-model="newTask[0]" type="text" class="form-control" placeholder="Type to add new tasks">
+                <span class="input-group-btn">
+                    <button ng-click="insertNewTask()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                </span>
+            </div>
+            </br></hr>
+        </div>
+    </div>
+     <div class="row col-sm-12">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="task in currentList['tasks']">
+                </span><span ng-click="removeTask(task)" class="clicking-mouse pull-right glyphicon glyphicon-trash gi-trash-20x"></span>
+                <div class="form-group no-mergin">
+                    <input ng-model="task[1]" type="checkbox" name="{{task[0]}}" id="{{task[0]}}" autocomplete="off"/>
+                    <div class="btn-group">
+                        <label for="{{task[0]}}" class="btn btn-default" ng-class="{ 'btn-success': task[1] }">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <span> </span>
+                        </label>
+                        <label for="{{task[0]}}" class="btn btn-default" ng-class="{ 'active': task[1] }">
+                        {{task[0]}} 
+                        </label>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div> 
+    <div class="col-sm-12" ng-if="!(currentList['tasks'].length)">
+        </br></br></br></br></br></br></br></br>
+        <h2 class="center-gray">No tasks here</h5>
+        <h4 class="center-softgray">Add new tasks using the field above</h3>
+    </div>
+</div>
