@@ -1,6 +1,6 @@
 # Welcome To Itorerut Project
 
-![project logo](https://raw.githubusercontent.com/talgarusi/Itorerut-Project/master/logo.jpg)
+![project logo](https://github.com/talgarusi/Itorerut-Project/blob/master/images/logo.jpg?raw=true)
 
 ## About The Project
 The goal of this project is to help Itorerut - a social organization in Jerusalem, Israel by developing a web - application by their demands and specification.
