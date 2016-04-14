@@ -1,0 +1,37 @@
+<div class="container"> 
+    <div class="row">
+        <div class="col-sm-12">
+           <h1>Contacts<a href="/contacts/new" class="btn btn-default pull-right" id="menu-toggle">Create New Contact</a></h1>
+        </div>
+        <p><input type='search' class="form-control" placeholder="Search" ng-model="query" /></p>
+        
+        <!-- Table content -->
+        <div class="page-content" ng-style="{height: h}">
+            <table class = "table table-hover table-bordered increse-font-15">
+                <thead>
+                    <tr>
+                        <th ng-repeat="field in fields" ng-click="sort(field)">
+                            {{ field | labelCase }}
+                            <span ng-show="sort.field === field && !sort.order" class="glyphicon glyphicon-chevron-down"></span>
+                            <span ng-show="sort.field === field && sort.order" class="glyphicon glyphicon-chevron-up"></span>
+                        </th>
+                    </tr>
+                </thead>            
+                <tbody>
+                    <tr ng-click= "show(contact.id)" ng-repeat="contact in contacts | filter: query | orderBy: sort.field : sort.order">
+                        <td ng-repeat="field in fields">
+                            <div ng-if="field != 'birthday'">{{ contact[field][0]}}</div>
+                            <div ng-if="field == 'birthday'">{{ contact[field][0] | date:"MM/dd/yyyy" }}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>  
+        </div> 
+        <!-- End Table content -->
+        
+    </div>
+</div>
+
+
+
+
