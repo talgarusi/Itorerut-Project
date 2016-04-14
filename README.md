@@ -6,7 +6,7 @@
 The goal of this project is to help Itorerut - a social organization in Jerusalem, Israel by developing a web - application by their demands and specification.
 keep Jerusalem sociality united and connected.
 
-## Please visit our [Live Application](http://final-project-jce.azurewebsites.net/)
+## Please visit our [Live Application](http://vms-project1.azurewebsites.net/)
 
 ## Chat Room
 [![Gitter](https://badges.gitter.im/talgarusi/Itorerut-Project.svg)](https://gitter.im/talgarusi/Itorerut-Project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
