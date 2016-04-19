@@ -14,9 +14,9 @@ angular.module('contactsApp' , ['ngRoute', 'ngMessages'])
                 controller: 'newCtrl',
                 templateUrl: 'partials/new.ejs'
             })
-            .when('/calender', {
-                controller: 'calenderCtrl',
-                templateUrl: 'partials/calender.ejs'
+            .when('/calendar', {
+                controller: 'calendarCtrl',
+                templateUrl: 'partials/calendar.ejs'
             })
             .when('/contact/:id', {
                 controller: 'editCtrl',
