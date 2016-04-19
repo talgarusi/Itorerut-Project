@@ -14,6 +14,10 @@ angular.module('contactsApp' , ['ngRoute', 'ngMessages'])
                 controller: 'newCtrl',
                 templateUrl: 'partials/new.ejs'
             })
+            .when('/calender', {
+                controller: 'calenderCtrl',
+                templateUrl: 'partials/calender.ejs'
+            })
             .when('/contact/:id', {
                 controller: 'editCtrl',
                 templateUrl: 'partials/edit.ejs'
@@ -23,8 +27,8 @@ angular.module('contactsApp' , ['ngRoute', 'ngMessages'])
                 templateUrl: 'partials/noteslist.ejs'
             })
             .when('/', {
-                controller: 'homeCtrl',
-                templateUrl: 'partials/home.ejs'
+                controller: 'dashCtrl',
+                templateUrl: 'partials/dashboard.ejs'
             })
             .otherwise({redirectTo: '/'});
     });
