@@ -2,7 +2,7 @@ angular.module('contactsApp')
 	/* 
         controller of the home page
     */
-    .controller('homeCtrl' ,['$scope', function($scope){
+    .controller('dashCtrl' ,['$scope', function($scope){
         /*
             h = the height of the page
         */ 
