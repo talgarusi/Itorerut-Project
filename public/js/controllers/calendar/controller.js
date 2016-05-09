@@ -9,12 +9,22 @@ angular.module('contactsApp')
     */
     .controller('calendarCtrl' ,['$scope', function($scope){
         $scope.days = monthArray;
-        $scope.month = getMonthName(date.getMonth());
         $scope.numMonth = date.getMonth();
+        $scope.numMonth++;
+        $scope.month = getMonthName($scope.numMonth);
         $scope.year = date.getFullYear();
         
+        // click listner to add tasks
+        $scope.box$index=function() {
+            alert("no");
+        }
+        
+        
         //add function to the buyyon last and next month
-        //ButtonNextMonthClick
+        $scope.boxClicked=function(index) {
+            alert("good" + index);
+        }
+        
         $scope.ButtonNextMonthClick = function() {
             $scope.numMonth++;
 
@@ -45,7 +55,6 @@ angular.module('contactsApp')
      }]);
 
 
-
 function getDaysArray(year, month) {
     var numDaysInMonth, daysInWeek, daysIndex, index, i, l, daysArray;
     numDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -59,7 +68,6 @@ function getDaysArray(year, month) {
         daysArray.push((i + 1) + '. ' + daysInWeek[index++]);
         if (index == 7) index = 0;
     }
-    alert(daysArray.length);
     return daysArray;
 }
 
