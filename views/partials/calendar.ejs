@@ -1,6 +1,4 @@
 
-</br>
-</br>
     <center>
 <TABLE BORDER="0">
     <tr>
@@ -15,12 +13,13 @@
 
 	<li id="thismonth">
         <ol>
-            <div ng-repeat="n in days track by $index">
+            <div ng-repeat="n in days track by $index" ng-click="boxClicked($index)">
             <li>{{n}}</li>
             </div>
         </ol>
 	</li>
 	
 
+	
 </ol>
 </center>
