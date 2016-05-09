@@ -2,6 +2,8 @@ var date = new Date();
 
 var monthArray = getDaysArray(date.getYear(),date.getMonth());
 
+var normal=0;//offset to the calendar array.help us to know how many elemnts on the array are not real
+
 
 angular.module('contactsApp')
 	/* 
@@ -22,7 +24,14 @@ angular.module('contactsApp')
         
         //add function to the buyyon last and next month
         $scope.boxClicked=function(index) {
-            alert("good" + index);
+            var i=0;
+            for(;$scope.days[i]==="";i++);
+            
+            index -= i;
+            index++;
+            if(index<1) return;
+            
+            
         }
         
         $scope.ButtonNextMonthClick = function() {
@@ -56,6 +65,9 @@ angular.module('contactsApp')
 
 
 function getDaysArray(year, month) {
+    var firstime = true;
+    var firstday;
+    var loopSize=6;
     var numDaysInMonth, daysInWeek, daysIndex, index, i, l, daysArray;
     numDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     if(year%4 == 0) numDaysInMonth[1] = 29;
@@ -66,8 +78,29 @@ function getDaysArray(year, month) {
 
     for (i = 0, l = numDaysInMonth[month - 1]; i < l; i++) {
         daysArray.push((i + 1) + '. ' + daysInWeek[index++]);
+        
+        if(firstime){
+            firstime = false;
+            firstday = daysInWeek[index];
+        }
+        
         if (index == 7) index = 0;
     }
+    
+    if(firstday == "Monday") loopSize=0;
+    if(firstday == "Tuesday") loopSize=1;
+    if(firstday == "Wednesday") loopSize=2;
+    if(firstday == "Thursday") loopSize=3;
+    if(firstday == "Friday") loopSize=4;
+    if(firstday == "Saturday") loopSize=5;
+    
+    normal = loopSize;
+    alert("this is the normalv"+normal);
+    
+    for(var k=0; k<loopSize;k++)
+        {
+            daysArray.unshift("");
+        }
     return daysArray;
 }
 
