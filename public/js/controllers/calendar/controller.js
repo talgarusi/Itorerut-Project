@@ -17,6 +17,8 @@ angular.module('contactsApp')
         $scope.year = date.getFullYear();
         
         // click listner to add tasks
+        $scope.box$index=function() {
+        }
         
         
         //add function to the buyyon last and next month
@@ -27,8 +29,6 @@ angular.module('contactsApp')
             index -= i;
             index++;
             if(index<1) return;
-            
-            
         }
         
         $scope.ButtonNextMonthClick = function() {
