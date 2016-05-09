@@ -144,43 +144,5 @@
 
 
 
-/*
- * CSS Calendar
- -----------------------------*/
-
-
-ol.calendar    {width: 70%;margin:0 auto;display:block; min-height: 620px;
-			background: url(https://www.cisco.com/assets/sol/sb/RV320_Emulators/RV320_Emulator_v1-2-1-14/images/body_bg.jpg) no-repeat;background-size: cover;}
-li		{list-style:none;}
-p.link		{text-align:center;display: block;}
-h1		{ width: 200px;height:76px;
-			background:url(public\images\calendar-br.jpg);text-indent:-9999px; margin: 15px auto; }
-
-/*
- * Day styles
- -------------------------*/
-li li		{width:10em;height:7em;float:left;margin:.2em; padding:.4em;overflow:auto;
-			background-color: #ccd7e4; bottom right no-repeat; }
-
-/*
- * Day content (UL/OL & P)
- -------------------------*/
-li li p	 {font-size:.5em;display:block;}
-li li ol	 {width:auto;}
-li li ul li,
-li li ol li     {font-size:.7em;display:block;height:auto;width:auto; background: none;
-			margin:1px;padding:.2em 0;float:none;}
-
-/*
- * Holiday class
- -------------------------*/
-li li.holiday    {  }
-
-/*
- * Inactive months
- -------------------------*/
-li#lastmonth li,
-li#nextmonth li    { background: url(../../../images/calendar/day-bg-inactive.png);}
-
 
 
