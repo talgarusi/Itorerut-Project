@@ -10,8 +10,40 @@ angular.module('contactsApp')
     .controller('calendarCtrl' ,['$scope', function($scope){
         $scope.days = monthArray;
         $scope.month = getMonthName(date.getMonth());
+        $scope.numMonth = date.getMonth();
         $scope.year = date.getFullYear();
+        
+        //add function to the buyyon last and next month
+        //ButtonNextMonthClick
+        $scope.ButtonNextMonthClick = function() {
+            $scope.numMonth++;
+
+            if($scope.numMonth >12)
+                {
+                    $scope.numMonth =1;
+                    $scope.year++;                    
+                }
+            $scope.month = getMonthName($scope.numMonth);
+            $scope.days = getDaysArray($scope.year,$scope.numMonth);
+
+        }
+        
+        $scope.ButtonbackMonthClick= function() {
+            $scope.numMonth--;
+
+            if($scope.numMonth < 1)
+                {
+                    $scope.numMonth =12;
+                    $scope.year--;                    
+                }
+            
+            $scope.month = getMonthName($scope.numMonth);
+            $scope.days = getDaysArray($scope.year,$scope.numMonth);
+
+        }
+        
      }]);
+
 
 
 function getDaysArray(year, month) {
