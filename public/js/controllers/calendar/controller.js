@@ -17,9 +17,6 @@ angular.module('contactsApp')
         $scope.year = date.getFullYear();
         
         // click listner to add tasks
-        $scope.box$index=function() {
-            alert("no");
-        }
         
         
         //add function to the buyyon last and next month
@@ -95,7 +92,6 @@ function getDaysArray(year, month) {
     if(firstday == "Saturday") loopSize=5;
     
     normal = loopSize;
-    alert("this is the normalv"+normal);
     
     for(var k=0; k<loopSize;k++)
         {
