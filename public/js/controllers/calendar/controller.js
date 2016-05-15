@@ -25,7 +25,7 @@ angular.module('contactsApp')
     
 
 
-        $scope.ButtonNextMonthClick = function() {
+        $scope.nextWeekClick = function() {
             
             date.setDate(date.getDate() + 7);
             
@@ -33,9 +33,46 @@ angular.module('contactsApp')
 
         }
         
-        $scope.ButtonbackMonthClick= function() {
+        $scope.nextMonthClick = function() {
+
+            var tempM = date.getMonth();
             
+            var tempY = date.getFullYear();
+            
+            if(tempM == 11)
+                {
+                    tempM = 0;
+                    tempY++;
+                }
+
+            date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            
+            update($scope,date);
+
+        }
+        
+        $scope.backWeekClick= function() {
+
             date.setDate(date.getDate() - 7);
+            
+            update($scope,date);
+
+
+        }
+        
+        $scope.backMonthClick= function() {
+
+            var tempM = date.getMonth();
+            
+            var tempY = date.getFullYear();
+            
+            if(tempM == 0)
+                {
+                    tempM = 11;
+                    tempY--;
+                }
+
+            date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
             
             update($scope,date);
 
@@ -146,14 +183,11 @@ update= function( $scope , date ) {
             $scope.thDate = week[4].getDate();
             $scope.friDate = week[5].getDate();
             $scope.satDate = week[6].getDate();
-
-            console.log(" before");
+    
             $scope.dateString = dateString();
             $scope.monthArray= monthArray;
             $scope.miniString = miniString;
             $scope.boxColorArray = boxColorArray;
-            console.log(miniString);
-
 
         }
 
