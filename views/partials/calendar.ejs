@@ -1,25 +1,250 @@
+<div ng-controller="calendarCtrl">
+        <nav clas="navbar navbar-default"><!--Calendar navbar-->
+                <div class="row" >
+                        <div class="col-lg-2">
+                                <span class="calendarword">Calendar</span>
+                        </div>
+                        <div class="col-lg-2">
+                                <button class="btn btn-default" ng-click="today()">Today</button>
+                                        <div class="btn-group" role="group" aria-label="...">
+                                          <button type="button" class="btn btn-default" ng-click="ButtonbackMonthClick()"><</button>
+                                          <button type="button" class="btn btn-default" ng-click="ButtonNextMonthClick()">></button>
+                                        </div>
+                        </div>
+                        <div class="col-lg-2">
+                                        <p class="navbar-text navbar-left">{{dateString}}</p>
+                        </div>
 
-    <center>
-<TABLE BORDER="0">
-    <tr>
-    <td><input type="button" value="last month" ng-click="ButtonbackMonthClick()" /></td>
-    <td><h5>{{month}}   {{year}}</h5></td>
-    <td><input type="button" value="next month" ng-click="ButtonNextMonthClick()" /></td>
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                        More
+                                        <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                                        </ul>
+                                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-cog"</span></button>
+                        </div>
+                </div><!--Calendar bar-->              
+        </nav>
+ 
+        <div class="content">
+                <div class="left-content">
+                        <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                        <div class="btn-group">
+                                          <button class="btn btn-danger">Create event</button>
+                                        </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                        </div><!--End Row-->
+                <div class="row">
+                        <div class="col-sm-10">
+                                <h5>{{miniString}}</h5>
+                        </div>
+                </div>
+<!--MINI CALENDAR-->
+                <div class="row"> <!--Calender-->
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">S</div>   
+                                        <div class="col-md-1 table-bordered {{boxColorArray[0]}}">{{monthArray[0].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[7]}}">{{monthArray[7].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[14]}}">{{monthArray[14].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[21]}}">{{monthArray[21].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[28]}}">{{monthArray[28].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[35]}}">{{monthArray[35].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">M</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[1]}}">{{monthArray[1].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[8]}}">{{monthArray[8].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[15]}}">{{monthArray[15].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[22]}}">{{monthArray[22].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[29]}}">{{monthArray[29].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[36]}}">{{monthArray[36].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">T</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[2]}}">{{monthArray[2].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[9]}}">{{monthArray[9].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[16]}}">{{monthArray[16].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[23]}}">{{monthArray[23].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[30]}}">{{monthArray[30].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[37]}}">{{monthArray[37].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">W</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[3]}}">{{monthArray[3].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[10]}}">{{monthArray[10].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[17]}}">{{monthArray[17].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[24]}}">{{monthArray[24].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[31]}}">{{monthArray[31].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[38]}}">{{monthArray[38].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">TH</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[4]}}">{{monthArray[4].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[11]}}">{{monthArray[11].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[18]}}">{{monthArray[18].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[25]}}">{{monthArray[25].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[32]}}">{{monthArray[32].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered grey {{boxColorArray[39]}}">{{monthArray[39].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">F</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[5]}}">{{monthArray[5].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[12]}}">{{monthArray[12].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[19]}}">{{monthArray[19].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[26]}}">{{monthArray[26].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[33]}}">{{monthArray[33].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[40]}}">{{monthArray[40].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">S</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[6]}}">{{monthArray[6].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[13]}}">{{monthArray[13].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[20]}}">{{monthArray[20].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[27]}}">{{monthArray[27].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[34]}}">{{monthArray[34].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered grey {{boxColorArray[41]}}">{{monthArray[41].getDate()}}</div>
+                                </div>
+                        </div>
+                </div>
+ 
+<!--END MINI CALNDER-->
 
-    </tr>
-    </TABLE>
-
-<ol class="calendar" start="6">
-
-	<li id="thismonth">
-        <ol>
-            <div ng-repeat="n in days track by $index" ng-click="boxClicked($index)">
-            <li>{{n}}</li>
-            </div>
-        </ol>
-	</li>
-	
-
-	
-</ol>
-</center>
+ 
+        </div><!--End left-content-->
+ 
+ 
+                <div class="right-content">
+                        <div class="row">
+                                <div class="col-xs-1 table-bordered"><h6>GMT-05</h6></div>
+                                <div class="col-xs-2 table-bordered">Sun {{sunDate}}</div>
+                                <div class="col-xs-2 table-bordered">Mon {{monDate}}</div>
+                                <div class="col-xs-2 table-bordered">Tues {{tuesDate}}</div>
+                                <div class="col-xs-2 table-bordered">Wed {{wedDate}}</div>
+                                <div class="col-xs-1 table-bordered">TH {{thDate}}</div>
+                                <div class="col-xs-1 table-bordered">Fri {{friDate}}</div>
+                                <div class="col-xs-1 table-bordered">Sat {{satDate}}</div>
+                        </div>
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">12am-8am</div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>            
+                                       
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">9am<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">10am<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">11am<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">12pm<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">1pm<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                                    
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">2pm<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                                    
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">3pm<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">4pm<br><br></div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                                    
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered">5pm-12am</div>
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-2 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>
+                                <div class="col-lg-1 table-bordered"><br><br></div>    
+                                <div class="col-lg-1 table-bordered"><br><br></div>                            
+                        </div><!--End Row-->
+                </div><!--end right-content-->
+        </div><!--End Content-->
+    </div>
