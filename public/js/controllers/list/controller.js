@@ -18,6 +18,8 @@ angular.module('contactsApp')
             tring to restore contact object
             from the local storage
         */
+        
+        /*
         var contacts = localStorage.getItem("contacts");
         if(!contacts)
             contacts = [];
@@ -29,6 +31,13 @@ angular.module('contactsApp')
             the fields which will be displyed
             on the head of the table.
         */
+        
+        $http.get('/contacts').success(function(response) {
+            //console.log("I got the data I requested");
+            $scope.contacts = response;
+            $scope.contact = "";
+        });
+        
         $scope.fields = ['firstName', 'lastName', 'email', 'homePhone','cellPhone','birthday','website','address'];
 
         /*

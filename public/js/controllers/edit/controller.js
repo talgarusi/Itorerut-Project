@@ -3,13 +3,13 @@ angular.module('contactsApp')
         controller of edit contacts page
         --> familiar with the new controller 
     */
-    .controller('editCtrl' ,['$scope','$location','$routeParams','$filter', function($scope, $location , $routeParams, $filter){
+    .controller('editCtrl' ,['$http', '$scope','$location','$routeParams','$filter', function($http, $scope, $location , $routeParams, $filter){
         
         /*
             tring to restore contact object
             from the local storage
         */
-        var contacts = localStorage.getItem("contacts");
+        /*var contacts = localStorage.getItem("contacts");
          if(!contacts)
              contacts = [];
          else
@@ -20,10 +20,15 @@ angular.module('contactsApp')
             and find the contact from the contacts array
             and place it on $scope.contact
         */
-        var id = parseInt($routeParams.id, 10);
-        $scope.contact = $filter('getById')(contacts, id);
-        if($scope.contact.birthday[0] != "")
-            $scope.contact.birthday[0] = new Date($scope.contact.birthday[0]);
+        //var id = parseInt($routeParams.id, 10);
+        var id = $routeParams.id;
+        //$scope.contact = $filter('getById')(contacts, id);
+        $http.get('/contact/' + id).success(function(response) {
+            console.log(response);
+            $scope.contact = response;
+        });
+       // if($scope.contact.birthday[0] != "")
+         //   $scope.contact.birthday[0] = new Date($scope.contact.birthday[0]);
             
         /*
             deleting function when 
