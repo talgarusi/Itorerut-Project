@@ -7,27 +7,18 @@
                         <div class="col-lg-2">
                                 <button class="btn btn-default" ng-click="today()">Today</button>
                                         <div class="btn-group" role="group" aria-label="...">
-                                          <button type="button" class="btn btn-default" ng-click="ButtonbackMonthClick()"><</button>
-                                          <button type="button" class="btn btn-default" ng-click="ButtonNextMonthClick()">></button>
+                                                                                      <button type="button" class="btn btn-default" ng-click="nextMonthClick()"><<</button>
+                                          <button type="button" class="btn btn-default" ng-click="backWeekClick()"><</button>
+                                          <button type="button" class="btn btn-default" ng-click="nextWeekClick()">></button>
+                                                                                                                    <button type="button" class="btn btn-default" ng-click="backMonthClick()">>></button>
                                         </div>
                         </div>
                         <div class="col-lg-2">
                                         <p class="navbar-text navbar-left">{{dateString}}</p>
                         </div>
 
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                        More
-                                        <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                                        </ul>
-                                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-cog"</span></button>
                         </div>
-                </div><!--Calendar bar-->              
+                <!--Calendar bar-->              
         </nav>
  
         <div class="content">
@@ -36,7 +27,7 @@
                                 <div class="col-md-2"></div>
                                 <div class="col-md-8">
                                         <div class="btn-group">
-                                          <button class="btn btn-danger">Create event</button>
+                                          <button class="btn btn-danger ng-click">Create event</button>
                                         </div>
                                 </div>
                                 <div class="col-md-2"></div>
@@ -100,7 +91,7 @@
                                         <div class="col-md-1 table-bordered {{boxColorArray[18]}}">{{monthArray[18].getDate()}}</div>
                                         <div class="col-md-1 table-bordered {{boxColorArray[25]}}">{{monthArray[25].getDate()}}</div>
                                         <div class="col-md-1 table-bordered {{boxColorArray[32]}}">{{monthArray[32].getDate()}}</div>
-                                        <div class="col-md-1 table-bordered grey {{boxColorArray[39]}}">{{monthArray[39].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[39]}}">{{monthArray[39].getDate()}}</div>
                                 </div>
                         </div>
                         <div class="col-md-1 table-bordered">
@@ -122,7 +113,7 @@
                                         <div class="col-md-1 table-bordered {{boxColorArray[20]}}">{{monthArray[20].getDate()}}</div>
                                         <div class="col-md-1 table-bordered {{boxColorArray[27]}}">{{monthArray[27].getDate()}}</div>
                                         <div class="col-md-1 table-bordered {{boxColorArray[34]}}">{{monthArray[34].getDate()}}</div>
-                                        <div class="col-md-1 table-bordered grey {{boxColorArray[41]}}">{{monthArray[41].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[41]}}">{{monthArray[41].getDate()}}</div>
                                 </div>
                         </div>
                 </div>
@@ -248,3 +239,4 @@
                 </div><!--end right-content-->
         </div><!--End Content-->
     </div>
+</div>
