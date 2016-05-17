@@ -55,12 +55,12 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-/*  "/contacts"
+/*  "/contactsDB"
  *    GET: finds all contacts
  *    POST: creates a new contact
  */
 
-app.get("/contacts", function(req, res) {
+app.get("/contactsDB", function(req, res) {
     db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "Failed to get contacts.");
@@ -70,7 +70,7 @@ app.get("/contacts", function(req, res) {
     });
 });
 
-app.post("/contacts", function(req, res) {
+app.post("/contactsDB", function(req, res) {
     var newContact = req.body;
     db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
         if (err) {
@@ -81,13 +81,13 @@ app.post("/contacts", function(req, res) {
     });
 });
 
-/*  "/contacts/:id"
+/*  "/contactDB/:id"
  *    GET: find contact by id
  *    PUT: update contact by id
  *    DELETE: deletes contact by id
  */
 
-app.get("/contact/:id", function(req, res) {
+app.get("/contactDB/:id", function(req, res) {
     db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
         if (err) {
             handleError(res, err.message, "Failed to get contact");
@@ -97,7 +97,7 @@ app.get("/contact/:id", function(req, res) {
     });
 });
 
-app.put("/contact/:id", function(req, res) {
+app.put("/contactDB/:id", function(req, res) {
     var updateDoc = req.body;
     delete updateDoc._id;
 
@@ -110,7 +110,7 @@ app.put("/contact/:id", function(req, res) {
     });
 });
 
-app.delete("/contact/:id", function(req, res) {
+app.delete("/contactDB/:id", function(req, res) {
     db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
             handleError(res, err.message, "Failed to delete contact");
@@ -120,55 +120,52 @@ app.delete("/contact/:id", function(req, res) {
     });
 });
 
-/*  "/lists"
+/*  "/listsDB"
  *    GET: finds all lists
  *    POST: creates a new list
+ *    PUT: update list by id
+ *    DELETE: deletes list by id
  */
 
-app.get("/lists", function(req, res) {
+app.get("/listsDB", function(req, res) {
     db.collection(LISTS_COLLECTION).find({}).toArray(function(err, docs) {
         if (err) {
-            handleError(res, err.message, "Failed to get contacts.");
+            handleError(res, err.message, "Failed to get lists.");
         } else {
             res.status(200).json(docs);
         }
     });
 });
 
-app.post("/lists", function(req, res) {
+app.post("/listsDB", function(req, res) {
     var newList = req.body;
     db.collection(LISTS_COLLECTION).insertOne(newList, function(err, doc) {
         if (err) {
-            handleError(res, err.message, "Failed to create new contact.");
+            handleError(res, err.message, "Failed to create new list.");
         } else {
             res.status(201).json(doc.ops[0]);
         }
     });
 });
 
-/*  "/contacts/:id"
- *    GET: find contact by id
- *    PUT: update contact by id
- *    DELETE: deletes contact by id
- */
-
-app.put("/contact/:id", function(req, res) {
+app.put("/listsDB", function(req, res) {
     var updateDoc = req.body;
+    var id = updateDoc._id;
     delete updateDoc._id;
 
-    db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+    db.collection(LISTS_COLLECTION).updateOne({_id: new ObjectID(id)}, updateDoc, function(err, doc) {
         if (err) {
-            handleError(res, err.message, "Failed to update contact");
+            handleError(res, err.message, "Failed to update list");
         } else {
             res.status(204).end();
         }
     });
 });
 
-app.delete("/contact/:id", function(req, res) {
-    db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+app.delete("/listsDB/:id", function(req, res) {
+    db.collection(LISTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
         if (err) {
-            handleError(res, err.message, "Failed to delete contact");
+            handleError(res, err.message, "Failed to delete list");
         } else {
             res.status(204).end();
         }
@@ -177,6 +174,4 @@ app.delete("/contact/:id", function(req, res) {
 
 
 // all other routes direct to index.
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
 app.get('*', routes.index);

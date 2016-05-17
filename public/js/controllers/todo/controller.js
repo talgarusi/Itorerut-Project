@@ -10,26 +10,19 @@ angular.module('contactsApp')
         */        
         $scope.h = window.innerHeight-100 +'px';
         $scope.h2 = window.innerHeight-100-164 +'px';
-
-        $scope.refresh = function(){
-            $http.get("/lists").
-                then(function(response) {
-                    $scope.lists = response.data;
-                }, 
-                function(response) {
-                    console.log("Error retrieving lists.");
-                });    
-        };
-
-        $scope.refresh();
-        $scope.currentList = null;
-        
-        /*
-            a new task object    
-        */
-         var newTaskid;
         $scope.newTask = new task(0, "" , false);
-            
+        $scope.currentList = null;
+        $scope.listname = {};
+        $scope.listname.name = null;
+
+        $http.get("/listsDB").
+            then(function(response) {
+                $scope.lists = response.data;
+            }, 
+            function(response) {
+                console.log("Error retrieving lists.");
+            });    
+          
         /*
             when clicking on a list from the sidebar
             assign the clicked list to the current lst property.
@@ -37,25 +30,27 @@ angular.module('contactsApp')
         $scope.show = function(list){
             $scope.currentList = list;
         };
-        
+                
         /*
             new list function when
             clicking on the create new list icon
         */
-        $scope.newList = function(){   
+        $scope.newList = function(listname){   
             var list = {
-                name: "New List",
+                name: listname,
                 tasks: []
             }
-            $http.post("/lists", list).
+            $http.post("/listsDB", list).
                 then(function(response) {
                     console.log("lists added");
+                    list = response.data;
+                    $scope.lists.push(list);
+                    $scope.currentList = list;
                 }, 
                 function(response) {
                     console.log("Error adding list.");
-                });
-            $scope.currentList = list;
-            $scope.refresh();
+                });  
+            
         };
         
         /*
@@ -65,14 +60,21 @@ angular.module('contactsApp')
         $scope.removeList = function(){
             /*
                 1. find the index of the current list
-                2. delete it from the lists array
-                3. set the current list to null
-                4. update the local storage
+                2. update the DB
+                3. delete it from the lists array
+                4. set the current list to null
+                
             */
             var index = $scope.lists.indexOf($scope.currentList);
+            $http.delete("/listsDB/" + $scope.currentList._id).
+                then(function(response) {
+                    console.log("List deleted");
+                }, 
+                function(response) {
+                    console.log("Error deleteing list.");
+                });     
             $scope.lists.splice(index, 1);
             $scope.currentList = null;
-            $scope.update();
         };
         
          /*
@@ -114,7 +116,13 @@ angular.module('contactsApp')
             update local storage function
         */
         $scope.update = function(){
-            localStorage.setItem("lists" , JSON.stringify($scope.lists));     
+            $http.put("/listsDB", $scope.currentList).
+                then(function(response) {
+                    console.log("List updated");
+                }, 
+                function(response) {
+                    console.log("Error update list.");
+                });    
         };
         
         /* 
@@ -141,7 +149,23 @@ angular.module('contactsApp')
             }
             return num;
         }
-             
+         
+        $scope.hideNewModel = function(status){
+            if(status === "create")
+                $scope.newList($scope.listname.name);  
+            $('#newlistmodal').modal('hide');
+            $scope.listname.name = null;
+        };   
+        
+        $scope.hideEditModel = function(status){
+            if(status === "save"){
+                $scope.currentList.name = $scope.listname.name;
+                $scope.update();
+            }
+            $('#editlistmodal').modal('hide');
+            $scope.listname.name = null;
+        };   
+            
     }]);
     
      

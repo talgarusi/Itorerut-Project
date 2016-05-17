@@ -8,7 +8,7 @@ angular.module('contactsApp')
         
         $scope.query = "";
 
-        $http.get("/contacts").
+        $http.get("/contactsDB").
             then(function(response) {
                 $scope.contacts = response.data;
                 $scope.contact = "";

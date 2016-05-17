@@ -28,7 +28,7 @@ angular.module('contactsApp')
                 2. redirect to the list table.
             */
                     
-            $http.post("/contacts", $scope.contact).
+            $http.post("/contactsDB", $scope.contact).
                 then(function(response) {
                     console.log("Contact added");
                 }, 

@@ -12,7 +12,7 @@ angular.module('contactsApp')
         */ 
         var id = $routeParams.id;
 
-        $http.get("/contact/" + id).
+        $http.get("/contactDB/" + id).
             then(function(response) {
                 $scope.contact = response.data;
                 if($scope.contact.birthday[0] != "")
@@ -27,7 +27,7 @@ angular.module('contactsApp')
             clicking on the delete button
         */
         $scope.delete = function(){
-            $http.delete("/contact/" + id).
+            $http.delete("/contactDB/" + id).
                 then(function(response) {
                     console.log("Contact deleted");
                 }, 
@@ -42,7 +42,7 @@ angular.module('contactsApp')
             clicking on the save button
         */
         $scope.save = function(){ 
-            $http.put("/contact/" + id, $scope.contact).
+            $http.put("/contactDB/" + id, $scope.contact).
                 then(function(response) {
                     console.log("Contact saved");
                 }, 
