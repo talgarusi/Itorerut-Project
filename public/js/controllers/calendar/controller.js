@@ -8,6 +8,14 @@ var miniString;
 
 var boxColorArray;
 
+var weekColorArray;
+
+var weekArray;
+
+var eventsArray;
+
+var hashMapHours = {};
+
 Init(date);
 
 InitMonth(date);
@@ -17,12 +25,22 @@ var normal=0;//offset to the calendar array.help us to know how many elemnts on 
 
 angular.module('contactsApp')
 
-    .controller('calendarCtrl' ,['$scope', function($scope){
-
+       .controller('calendarCtrl' ,['$http', '$scope','$location','$rootScope', function($http, $scope, $location, $rootScope){
+           
+            $scope.validDates = false;
             update($scope,null);
+           
         
-        
-    
+        $http.get('/calendarDB').success(function(response) {
+            $scope.events = response;
+            eventsArray = response;
+
+        });
+           
+        $scope.change = function() {
+        if($scope.event.toDate > $scope.event.fromDate) $scope.validDates = true;
+            else  $scope.validDates = false;
+      };
 
 
         $scope.nextWeekClick = function() {
@@ -32,7 +50,13 @@ angular.module('contactsApp')
             update($scope,date);
 
         }
-        
+        $scope.sendData = function()
+        {
+        $http.post('/calendarDB', $scope.event).success(function(response) {
+
+            });
+            $location.url('/calendar');
+        }
         $scope.nextMonthClick = function() {
 
             var tempM = date.getMonth();
@@ -44,8 +68,10 @@ angular.module('contactsApp')
                     tempM = 0;
                     tempY++;
                 }
+            else
+                tempM ++;
 
-            date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            date = new Date(tempY, tempM, date.getDate());
             
             update($scope,date);
 
@@ -71,8 +97,10 @@ angular.module('contactsApp')
                     tempM = 11;
                     tempY--;
                 }
+            else
+                tempM--;
 
-            date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            date = new Date(tempY, tempM, date.getDate());
             
             update($scope,date);
 
@@ -173,7 +201,7 @@ update= function( $scope , date ) {
             if(date != null)
                 {
                 Init(date);
-                InitMonth(date)
+                InitMonth(date);
                 }
 
             $scope.sunDate = week[0].getDate();
@@ -184,6 +212,8 @@ update= function( $scope , date ) {
             $scope.friDate = week[5].getDate();
             $scope.satDate = week[6].getDate();
     
+            //weekEventConnect();
+
             $scope.dateString = dateString();
             $scope.monthArray= monthArray;
             $scope.miniString = miniString;
@@ -232,5 +262,51 @@ function InitMonth(date) {
     
     
 }
+
+function weekEventConnect()
+{
+    weekColorArray = new Array(70);
+    weekArray = new Array(70);
+
+    var day;
+    
+    for(var i =0 ; i < 70 ; i++)
+        {
+            day =getDateByBoxNum(i);
+            
+            for(var j=0;j<eventsArray.length;j++)
+                {
+                    if(day > eventsArray[j].fromDate && day > eventsArray[j].toDate)
+                        {
+                            weekColorArray[i].push(j);
+                            
+                            weekArray[i] = "green";
+                        }
+                }
+        }
+}
+
+
+function getDateByBoxNum(num) {
+    
+    var time = Math.floor( num/7);
+    var day = new Date(week[num%7].getTime);
+    
+    if(time ==0) time =0;
+    if(time ==1) time =9;
+    if(time ==2) time =10;
+    if(time ==3) time =11;
+    if(time ==4) time =12;
+    if(time ==5) time =13;
+    if(time ==6) time =14;
+    if(time ==7) time =15;
+    if(time ==8) time =16;
+    if(time ==9) time =17;
+    
+    day.setHours(time);   
+    
+    return day;
+}
+
 
 
