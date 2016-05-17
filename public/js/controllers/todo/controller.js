@@ -2,7 +2,7 @@ angular.module('contactsApp')
      /* 
         controller of the to do list page
     */
-    .controller('todoCtrl' ,['$scope','$location','$routeParams','$filter', function($scope, $location , $routeParams, $filter){
+    .controller('todoCtrl' ,['$scope','$http','$location','$routeParams','$filter', function($scope, $http, $location , $routeParams, $filter){
         
         /*
             h2 = height of the contact page -> spisefic list
@@ -10,28 +10,24 @@ angular.module('contactsApp')
         */        
         $scope.h = window.innerHeight-100 +'px';
         $scope.h2 = window.innerHeight-100-164 +'px';
-        
-        var newTaskid;
-        
-        /*
-            tring to restore lists object
-            from the local storage
-        */
-        var lists = localStorage.getItem("lists");
-         if(!lists)
-             lists = [];
-         else
-             lists = JSON.parse(lists);
-        $scope.lists = lists;
-        
-        /*
-            the current clicked list
-        */
+
+        $scope.refresh = function(){
+            $http.get("/lists").
+                then(function(response) {
+                    $scope.lists = response.data;
+                }, 
+                function(response) {
+                    console.log("Error retrieving lists.");
+                });    
+        };
+
+        $scope.refresh();
         $scope.currentList = null;
         
         /*
             a new task object    
         */
+         var newTaskid;
         $scope.newTask = new task(0, "" , false);
             
         /*
@@ -46,23 +42,20 @@ angular.module('contactsApp')
             new list function when
             clicking on the create new list icon
         */
-        $scope.newList = function(){
-             /*
-                1. find new free id
-                2. declere of new empty list
-                3. push it to the lists object
-                4. update the local storage
-                5. set the current list to the new list
-            */    
-            var newid = $filter('getMaxId')($scope.lists) + 1;
+        $scope.newList = function(){   
             var list = {
-                id: newid, 
                 name: "New List",
                 tasks: []
             }
-            $scope.lists.push(list);
-            $scope.update();
-            $scope.currentList = list;   
+            $http.post("/lists", list).
+                then(function(response) {
+                    console.log("lists added");
+                }, 
+                function(response) {
+                    console.log("Error adding list.");
+                });
+            $scope.currentList = list;
+            $scope.refresh();
         };
         
         /*

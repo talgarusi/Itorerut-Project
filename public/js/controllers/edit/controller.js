@@ -4,58 +4,51 @@ angular.module('contactsApp')
         --> familiar with the new controller 
     */
     .controller('editCtrl' ,['$http', '$scope','$location','$routeParams','$filter', function($http, $scope, $location , $routeParams, $filter){
-        
-        /*
-            tring to restore contact object
-            from the local storage
-        */
-        /*var contacts = localStorage.getItem("contacts");
-         if(!contacts)
-             contacts = [];
-         else
-             contacts = JSON.parse(contacts);
-        
+
         /*
             getting the contact id from the URL
-            and find the contact from the contacts array
+            and find the contact from the DB
             and place it on $scope.contact
-        */
-        //var id = parseInt($routeParams.id, 10);
+        */ 
         var id = $routeParams.id;
-        //$scope.contact = $filter('getById')(contacts, id);
-        $http.get('/contact/' + id).success(function(response) {
-            console.log(response);
-            $scope.contact = response;
-        });
-       // if($scope.contact.birthday[0] != "")
-         //   $scope.contact.birthday[0] = new Date($scope.contact.birthday[0]);
-            
+
+        $http.get("/contact/" + id).
+            then(function(response) {
+                $scope.contact = response.data;
+                if($scope.contact.birthday[0] != "")
+                    $scope.contact.birthday[0] = new Date($scope.contact.birthday[0]);
+            }, 
+            function(response) {
+                console.log("Error retrieving contacts.");
+            });
+                
         /*
             deleting function when 
             clicking on the delete button
         */
         $scope.delete = function(){
-            /*
-                1. remove the contact from the array.
-                2. update the local storage.
-                3. redirect to the list table.
-            */
-            var index = contacts.indexOf($scope.contact);
-            contacts.splice(index, 1);
-            localStorage.setItem("contacts" , JSON.stringify(contacts));
+            $http.delete("/contact/" + id).
+                then(function(response) {
+                    console.log("Contact deleted");
+                }, 
+                function(response) {
+                    console.log("Error deleteing contact.");
+                });
             $location.url('/contacts');
         };
         
         /*
-            saving function when 
+            saving contact when 
             clicking on the save button
         */
         $scope.save = function(){ 
-            /*
-                1. update the local storage (we already update the pointer).
-                2. redirect to the list table.
-            */
-            localStorage.setItem("contacts" , JSON.stringify(contacts));
+            $http.put("/contact/" + id, $scope.contact).
+                then(function(response) {
+                    console.log("Contact saved");
+                }, 
+                function(response) {
+                    console.log("Error saveing contact.");
+                });
             $location.url('/contacts');
         };
         

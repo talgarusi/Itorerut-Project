@@ -4,7 +4,7 @@
         <form name="editContact" novalidate class="form-horizontal well bs-component">
             <form-field record="contact" field="firstName" required="true"></form-field>
             <form-field record="contact" field="lastName" required="true"></form-field>
-            <form-field record="contact" ng-repeat='(k,v) in contact | keyFilter: "firstName" | keyFilter: "lastName" | keyFilter: "id"'  
+            <form-field record="contact" ng-repeat='(k,v) in contact | keyFilter: "firstName" | keyFilter: "lastName" | keyFilter: "id" | keyFilter: "_id"'  
             field="{{k}}">
             </form-field> 
              <div class= "row form-group">

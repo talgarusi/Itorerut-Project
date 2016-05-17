@@ -18,7 +18,7 @@
                     </tr>
                 </thead>            
                 <tbody>
-                    <tr ng-click= "show(contact.id)" ng-repeat="contact in contacts | filter: query | orderBy: sort.field : sort.order">
+                    <tr ng-repeat="contact in contacts | filter: query | orderBy: sort.field : sort.order" ng-click= "show(contact._id)">
                         <td ng-repeat="field in fields">
                             <div ng-if="field != 'birthday'">{{ contact[field][0]}}</div>
                             <div ng-if="field == 'birthday'">{{ contact[field][0] | date:"MM/dd/yyyy" }}</div>
