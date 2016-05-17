@@ -253,16 +253,56 @@
         <h3 class="modal-title">Create Event</h3>
       </div>
         <div class="modal-body">
-            <h6 class="modal-title">Event Name</h6>
-            <input id="name" type="text" ng-model='event.name' class="event-name" required>
-            <h6 class="modal-title">Event Description</h6>
-            <input id="descrition" type="text" ng-model='event.description' class="event-description" required>
-             <button type="button" class="btn btn-default">Submit</button>
+        <form name="myForm">
+        
+            <div class="modal-body">
+                
+                                      <div class="row">
+                    <div class="col-sm-12">
+                        <h6 class="modal-title">Event name</h6>
+                        <input name="eventName" type="text" ng-model='event.name' ng-minlength="1" class="event-name" required>
+                              </div>
+                </div>
+
+
+                    <div class="row">
+                            <div class="col-sm-5">
+                                <h6 class="modal-title">From date</h6>
+  <input type="datetime-local" id="fromDate" name="fromDate" ng-change="change()"  ng-model="event.fromDate"/>
+                            </div>
+                        
+
+                        </div>
+                                                              <div class="row">
+                            <div class="col-sm-5">
+                                <h6 class="modal-title">To date</h6>
+  <input type="datetime-local" id="toDate" name="toDate" ng-change="change()" ng-model="event.toDate" />
+                            </div>
+                        </div>
+
+                          <div class="row">
+
+
+                        <div class="col-sm-12">
+                            
+                            <h6 class="modal-title">Descripton</h6>
+                            <textarea rows="4" cols="50" name = "descripton" ng-model='event.description'></textarea>
+                            
+                        </div>
+
+                    </div>
+            </div>
+        </form>
         </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-disabled="!( myForm.eventName.$valid && validDates)" class="btn btn-default" data-dismiss="modal" ng-click="sendData()"
+                >Save and close</button>
+          
     </div>
-
+          <div class="alert alert-info">
+  <strong>Info!</strong> Required fields are: "Event name", "From date" and "To date"
+. also "From date" must to be less than "To date".</div>
+      </div>
   </div>
 </div>
