@@ -113,21 +113,15 @@ li#nextmonth li    { background: url(../../../images/calendar/day-bg-inactive.pn
 .grey{
         color: #b2b2b2;
 }
-
-.event-name{
-        color:black;
-        font-size: 22px;
-        font-size-adjust: auto;
-        width: 100%;
-        background-color: whitesmoke;
+.green{
+        background-color: green;
 }
-
-.event-description{
-        color:black;
-        font-size: 22px;
-        font-size-adjust: auto;
-        width: 100%;
-        height: auto;
-
-        background-color: whitesmoke;
+.red{
+        background-color: red;
+}
+/*
+for event`s name in the big calendar
+*/
+h7 {
+        font-size:x-small;
 }
