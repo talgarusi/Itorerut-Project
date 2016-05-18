@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-lg-7 marign-top">
                                         <span class="badge pull-left increse-font-17">{{ numOfTasks(currentList) }}</span>
-                                        <span ng-click="removeList()" class="clicking-mouse pull-right glyphicon glyphicon-trash gi-trash-20x"></span>
+                                        <span data-toggle="modal" data-target="#deleteModal" class="clicking-mouse pull-right glyphicon glyphicon-trash gi-trash-20x"></span>
                                 </div>
                             </div>
 
@@ -96,47 +96,65 @@
 
 <!-- Modal new list name-->
 <div class="modal fade" id="newlistmodal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" ng-click="hideNewModel()">&times;</button>
-                    <h3 class="modal-title">Enter list name</h3>
-                </div>
-                <form class="form-group" name="newListname" novalidate>
-                    <div class="modal-body">
-                        <input id="name" type="text" ng-model='listname.name' class="form-control" required>
-                        <p class="control-label has-error" ng-show="!listname.name"> Name is required. </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" ng-click="hideNewModel()">Cancel</button>
-                        <button type="button" class="btn btn-primary" ng-click="hideNewModel('create')" ng-disabled="!listname.name">Create List</button>
-                    </div>
-                </form>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="hideNewModel()">&times;</button>
+                <h3 class="modal-title">Enter list name</h3>
             </div>
+            <form class="form-group" name="newListname" novalidate>
+                <div class="modal-body">
+                    <input id="name" type="text" ng-model='listname.name' class="form-control" required>
+                    <p class="control-label has-error" ng-show="!listname.name"> Name is required. </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="hideNewModel()">Cancel</button>
+                    <button type="button" class="btn btn-primary" ng-click="hideNewModel('create')" ng-disabled="!listname.name">Create List</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
     
 <!-- Modal edit list name-->
 <div class="modal fade" id="editlistmodal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" ng-click="hideEditModel()">&times;</button>
-                    <h3 class="modal-title">Edit list name</h3>
-                </div>
-                <form class="form-group" name="editListname" novalidate>
-                    <div class="modal-body">
-                        <input id="name" type="text" ng-model='listname.name' class="form-control" required>
-                        <p class="control-label has-error" ng-show="!listname.name"> Name is required. </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" ng-click="hideEditModel()">Cancel</button>
-                        <button type="button" class="btn btn-primary" ng-click="hideEditModel('save')" ng-disabled="!listname.name">Update</button>
-                    </div>
-                </form>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="hideEditModel()">&times;</button>
+                <h3 class="modal-title">Edit list name</h3>
             </div>
+            <form class="form-group" name="editListname" novalidate>
+                <div class="modal-body">
+                    <input id="name" type="text" ng-model='listname.name' class="form-control" required>
+                    <p class="control-label has-error" ng-show="!listname.name"> Name is required. </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="hideEditModel()">Cancel</button>
+                    <button type="button" class="btn btn-primary" ng-click="hideEditModel('save')" ng-disabled="!listname.name">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Are you sure?</h3>
+            </div>
+            <div class="modal-body">
+                <h5>The list <b>{{currentList.name}}</b> will be permanently deleted </h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" ng-click="removeList()" class="btn btn-primary" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
     </div>
 </div>
 
