@@ -10,11 +10,17 @@ var boxColorArray;
 
 var weekColorArray;
 
-var weekArray;
+var weekWordsArray;
+
+var weekEventArray;
 
 var eventsArray;
 
 var hashMapHours = {};
+
+var hoursMap = {};
+
+InitMap();
 
 Init(date);
 
@@ -27,16 +33,27 @@ angular.module('contactsApp')
 
        .controller('calendarCtrl' ,['$http', '$scope','$location','$rootScope', function($http, $scope, $location, $rootScope){
            
-            $scope.validDates = false;
-            update($scope,null);
-           
+        $scope.validDates = false;
         
         $http.get('/calendarDB').success(function(response) {
-            $scope.events = response;
+
             eventsArray = response;
+            
+            for(var i=0; i<eventsArray.length ; i++)
+                {
+                    eventsArray[i].toDate = new Date(eventsArray[i].toDate);
+                    eventsArray[i].fromDate = new Date(eventsArray[i].fromDate);
+
+                }
+            weekEventConnect();
+            update($scope,new Date);
+
 
         });
+
            
+
+              
         $scope.change = function() {
         if($scope.event.toDate > $scope.event.fromDate) $scope.validDates = true;
             else  $scope.validDates = false;
@@ -56,6 +73,26 @@ angular.module('contactsApp')
 
             });
             $location.url('/calendar');
+                    $http.get('/calendarDB').success(function(response) {
+            
+          
+            eventsArray = response;
+            
+            for(var i=0; i<eventsArray.length ; i++)
+                {
+                    eventsArray[i].toDate = new Date(eventsArray[i].toDate);
+                    eventsArray[i].fromDate = new Date(eventsArray[i].fromDate);
+
+                }
+            
+
+        
+            //$scope.events = JSON.parse(response);
+            weekEventConnect();
+
+
+
+        });
         }
         $scope.nextMonthClick = function() {
 
@@ -200,8 +237,12 @@ update= function( $scope , date ) {
             
             if(date != null)
                 {
-                Init(date);
-                InitMonth(date);
+                    Init(date);
+                    InitMonth(date);
+                    weekEventConnect();
+                    $scope.colorWeekBox = weekColorArray;
+                    $scope.weekWordsArray = weekWordsArray;
+
                 }
 
             $scope.sunDate = week[0].getDate();
@@ -212,7 +253,9 @@ update= function( $scope , date ) {
             $scope.friDate = week[5].getDate();
             $scope.satDate = week[6].getDate();
     
-            //weekEventConnect();
+
+
+    
 
             $scope.dateString = dateString();
             $scope.monthArray= monthArray;
@@ -263,50 +306,95 @@ function InitMonth(date) {
     
 }
 
+
+
 function weekEventConnect()
 {
-    weekColorArray = new Array(70);
-    weekArray = new Array(70);
+    console.log("1" + eventsArray);
+    weekEventArray = new Array(eventsArray.length);
+    console.log("2");
 
-    var day;
+    weekColorArray = new Array(70);
+    weekWordsArray = new Array(70);
     
-    for(var i =0 ; i < 70 ; i++)
+    var fromHour,toHour,fromDay,toDay;
+    
+    
+    for(var i =0 ; i< 70;i++)
         {
-            day =getDateByBoxNum(i);
-            
-            for(var j=0;j<eventsArray.length;j++)
+            weekColorArray[i] = "";
+            weekWordsArray[i] = "";
+        }
+
+    for(var i =0 ; i < eventsArray.length ; i++)
+        {
+                        
+
+            if(eventsArray[i].fromDate<week[6] && eventsArray[i].toDate > week[0])
                 {
-                    if(day > eventsArray[j].fromDate && day > eventsArray[j].toDate)
+                    fromHour = eventsArray[i].fromDate.getHours();
+                    toHour = eventsArray[i].toDate.getHours();
+                    fromDay = eventsArray[i].fromDate.getDay();
+                    toDay = eventsArray[i].toDate.getDay();
+                    
+                    if(eventsArray[i].fromDate < week[0])
                         {
-                            weekColorArray[i].push(j);
-                            
-                            weekArray[i] = "green";
+                            fromHour = 0;
+                            fromDay = 0
                         }
+                    if(eventsArray[i].toDate > week[6])
+                        {
+                            toHour = 23;
+                            toDay = 6
+                        }
+                    
+                    var tempHour =  fromHour;
+                    var tempDay = fromDay;
+                    
+                    while(tempDay < toDay || (tempDay==toDay && tempHour < toHour))
+                        {
+                            weekColorArray[hoursMap[tempHour]*7 + tempDay] = "green";
+                            if(weekWordsArray[hoursMap[tempHour]*7 + tempDay].indexOf(eventsArray[i].name) <= -1)
+                            weekWordsArray[hoursMap[tempHour]*7 + tempDay] = weekWordsArray[hoursMap[tempHour]*7 + tempDay] + " " +eventsArray[i].name;
+                            tempHour++;
+                            
+                                if(tempHour==24) {
+                                    tempDay++;
+                                    tempHour=0;
+                            }
+                        }
+
                 }
         }
 }
+function InitMap(){  
+    hoursMap["0"] = 0;
+    hoursMap["1"] = 0;       
+    hoursMap["2"] = 0;
+    hoursMap["3"] = 0;
+    hoursMap["4"] = 0;
+    hoursMap["5"] = 0;
+    hoursMap["6"] = 0;
+    hoursMap["7"] = 0;
+    hoursMap["8"] = 0;
+    hoursMap["9"] = 1;
+    hoursMap["10"] = 2;
+    hoursMap["11"] = 3;
+    hoursMap["12"] = 4;
+    hoursMap["13"] = 5;
+    hoursMap["14"] = 6;
+    hoursMap["15"] = 7;
+    hoursMap["16"] = 8;
+    hoursMap["17"] = 9;
+    hoursMap["18"] = 9;
+    hoursMap["19"] = 9;
+    hoursMap["20"] = 9;
+    hoursMap["21"] = 9;
+    hoursMap["22"] = 9;
+    hoursMap["23"] = 9;
 
-
-function getDateByBoxNum(num) {
-    
-    var time = Math.floor( num/7);
-    var day = new Date(week[num%7].getTime);
-    
-    if(time ==0) time =0;
-    if(time ==1) time =9;
-    if(time ==2) time =10;
-    if(time ==3) time =11;
-    if(time ==4) time =12;
-    if(time ==5) time =13;
-    if(time ==6) time =14;
-    if(time ==7) time =15;
-    if(time ==8) time =16;
-    if(time ==9) time =17;
-    
-    day.setHours(time);   
-    
-    return day;
 }
+
 
 
 
