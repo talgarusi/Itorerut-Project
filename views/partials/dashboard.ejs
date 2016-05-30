@@ -1,55 +1,55 @@
 <!-- Home page with the image and the welcome text -->
 <div class="backcolor" ng-style="{height: h}">
-    
+
     <!-- Content Wrapper. Contains page content -->
-      <div id="Content Wrapper" class="content">
-          
+    <div id="Content Wrapper" class="content">
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-            Dashboard
-          </h1>
+            <h1>
+                Dashboard
+            </h1>
         </section>
 
         <!-- Main content -->
         <section class="content">
-    
+
             <!-- BOXES SECTION -->
             <section>
-                
+
                 <!-- ROW -->
                 <div class="row">
-                    
+
                     <!-- FIRST BOX: EVENTS -->
                     <div class="col-lg-4 col-xs-6">
-                       <div class="small-box bg-aqua">
+                        <div class="small-box bg-aqua">
                             <div class="inner">
                                 <h3>Events</h3>
                                 <p>{{events.length}}</p>
                             </div>
                             <div class="icon">
-                              <i class="ion ion-calendar"></i>
+                                <i class="ion ion-calendar"></i>
                             </div>
                             <a href="/calendar" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                          </div>
+                        </div>
                     </div>
                     <!-- END OF FIRST BOX ./col -->
-                    
+
                     <!-- SECOND BOX: TASKS STATISTICS -->
                     <div class="col-lg-4 col-xs-6">
-                      <div class="small-box bg-green">
-                        <div class="inner">
-                          <h3>Tasks Statistics</h3>
-                          <p>Tasks Completed: {{getTasksStatistics()}}%</p>
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3>Tasks Statistics</h3>
+                                <p>Tasks Completed: {{tasksStatistics()}}%</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="/todos" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                        <div class="icon">
-                          <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="/todos" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                      </div>
                     </div>
                     <!-- END OF SECOND BOX ./col -->
-                
+
                     <!-- THIRD BOX: VOLUNTEERS -->
                     <div class="col-lg-4 col-xs-6">
                         <div class="small-box bg-yellow">
@@ -64,48 +64,48 @@
                         </div>
                     </div>
                     <!-- END OF THIRD BOX ./col -->
-                
+
                 </div>
                 <!-- END OF BOXES ROW -->
-        
+
             </section>
             <!-- END OF BOXES SECTION -->
-        
-            
+
+
             <!-- MAIN SECTION -->
             <section>
-                
+
                 <!-- MAIN ROW -->
                 <div class="row">
-                
+
                     <!-- LEFT COL -->
                     <div class="col-lg-3">
                         <h1>Calendar</h1>
                     </div>
-                    
+
                     <!-- END OF LEFT COL -->
-                    
+
                     <!-- CENTER COL -->
                     <div class="col-lg-6">
                         <h1>GRAPH</h1>
                     </div>
                     <!-- END OF CENTER COL -->
-                    
-                    <!-- RIGHT COL -->
+
+                    <!-- RIGHT COL: TOP TODO LISTS -->
                     <div class="col-lg-3">
                         <h1>TODO LISTS:</h1>
                     </div>
                     <!-- END OF RIGHT COL -->
-                    
+
                 </div>
                 <!-- END OF MAIN ROW -->
-                
+
             </section>
             <!-- END OF MAIN SECTION -->
-            
+
         </section><!-- /.content -->
-          
-      </div><!-- / Content Wrapper -->
-    
+
+    </div><!-- / Content Wrapper -->
+
 </div>
 <!-- End Home page-->
