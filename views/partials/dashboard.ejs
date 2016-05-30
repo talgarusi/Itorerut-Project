@@ -20,47 +20,49 @@
                 <!-- ROW -->
                 <div class="row">
                     
-                    <!-- FIRST BOX -->
+                    <!-- FIRST BOX: EVENTS -->
                     <div class="col-lg-4 col-xs-6">
                        <div class="small-box bg-aqua">
                             <div class="inner">
-                              <h3>Events</h3>
-                              <p>25</p>
+                                <h3>Events</h3>
+<!--                                <p>{{events.length}}</p>-->
+                                <p>20</p>
                             </div>
                             <div class="icon">
-                              <i class="ion ion-bag"></i>
+                              <i class="ion ion-calendar"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="/calendar" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                           </div>
                     </div>
                     <!-- END OF FIRST BOX ./col -->
                     
-                    <!-- SECOND BOX -->
+                    <!-- SECOND BOX: TASKS STATISTICS -->
                     <div class="col-lg-4 col-xs-6">
                       <div class="small-box bg-green">
                         <div class="inner">
                           <h3>Tasks Statistics</h3>
-                          <p>20%</p>
+                          <p>Tasks Completed: {{getTasksStatistics()}}%</p>
                         </div>
                         <div class="icon">
                           <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="/todos" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <!-- END OF SECOND BOX ./col -->
                 
-                    <!-- THIRD BOX -->
+                    <!-- THIRD BOX: VOLUNTEERS -->
                     <div class="col-lg-4 col-xs-6">
                         <div class="small-box bg-yellow">
                             <div class="inner">
                                 <h3>Volunteers</h3>
-                                <p>225</p>
+<!--                                <p>{{contacts.length}}</p>-->
+                                    <p>20</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="/contacts" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- END OF THIRD BOX ./col -->
@@ -93,7 +95,7 @@
                     
                     <!-- RIGHT COL -->
                     <div class="col-lg-3">
-                        <h1>TODO List</h1>
+                        <h1>TODO LISTS:</h1>
                     </div>
                     <!-- END OF RIGHT COL -->
                     

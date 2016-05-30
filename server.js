@@ -10,6 +10,7 @@ var url = 'mongodb://admin:admin@ds017862.mlab.com:17862/itorerutdb';
 
 var CONTACTS_COLLECTION = "contacts";
 var LISTS_COLLECTION = "lists";
+var EVENTS_COLLECTION = "events";
                      
 var app = express();
 
@@ -168,6 +169,16 @@ app.delete("/listsDB/:id", function(req, res) {
             handleError(res, err.message, "Failed to delete list");
         } else {
             res.status(204).end();
+        }
+    });
+});
+
+app.get("/eventsDB", function(req, res) {
+    db.collection(EVENTS_COLLECTION).find({}).toArray(function(err, docs) {
+        if (err) {
+            handleError(res, err.message, "Failed to get events.");
+        } else {
+            res.status(200).json(docs);
         }
     });
 });
