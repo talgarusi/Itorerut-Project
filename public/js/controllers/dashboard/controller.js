@@ -37,6 +37,9 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
         // FUNCTIONS FOR TASK STATISTICS BOX:
         $scope.tasksStatistics = function() {
 
+            if ($scope.lists.length == 0)
+                return 0;
+            
             var completedTasksCounter = 0;
             var listIsComplete = function(list) {
 
@@ -52,7 +55,11 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
                     completedTasksCounter++;
             }
 
-            return (completedTasksCounter/$scope.lists.length*100).toFixed(2);
+            var statsResult = completedTasksCounter/$scope.lists.length*100;
+            if (statsResult % 1 === 0) // statistics result is Integer:
+                return statsResult;
+            else
+                return statsResult.toFixed(2);
         };
 
     }]); 
