@@ -8,9 +8,11 @@ var miniString;
 
 var boxColorArray;
 
-var weekColorArray;
+var weekColorArray = new Array(70);
 
-var weekWordsArray;
+var weekWordsArray = new Array(70);
+
+var weekHTMLArray = new Array(70);
 
 var weekEventArray;
 
@@ -33,31 +35,35 @@ angular.module('contactsApp')
 
        .controller('calendarCtrl' ,['$http', '$scope','$location','$rootScope', function($http, $scope, $location, $rootScope){
            
-        $scope.validDates = false;
+    $scope.validDates = false;
         
-        $http.get('/calendarDB').success(function(response) {
+    $http.get('/calendarDB').success(function(response) {
 
-            eventsArray = response;
-            
-            for(var i=0; i<eventsArray.length ; i++)
-                {
-                    eventsArray[i].toDate = new Date(eventsArray[i].toDate);
-                    eventsArray[i].fromDate = new Date(eventsArray[i].fromDate);
+        eventsArray = response;
 
-                }
-            weekEventConnect();
-            update($scope,new Date);
+        for(var i=0; i<eventsArray.length ; i++)
+        {
+
+            eventsArray[i].toDate = new Date(eventsArray[i].toDate);
+            eventsArray[i].fromDate = new Date(eventsArray[i].fromDate);
+
+        }
+        
+        weekEventConnect();
+        update($scope,new Date);
 
 
-        });
+    });
 
            
 
               
         $scope.change = function() {
-        if($scope.event.toDate > $scope.event.fromDate) $scope.validDates = true;
+            
+            if($scope.event.toDate > $scope.event.fromDate) $scope.validDates = true;
             else  $scope.validDates = false;
-      };
+            
+        };
 
 
         $scope.nextWeekClick = function() {
@@ -67,33 +73,39 @@ angular.module('contactsApp')
             update($scope,date);
 
         }
-        $scope.sendData = function()
-        {
-        $http.post('/calendarDB', $scope.event).success(function(response) {
-
+        
+        $scope.moveWeek = function(newDate){
+            
+            date = new Date($scope.monthArray[newDate]);
+            
+            update($scope,date);
+        }
+        
+        $scope.sendData = function(){
+            $http.post('/calendarDB', $scope.event).success(function(response) {
             });
+            
             $location.url('/calendar');
-                    $http.get('/calendarDB').success(function(response) {
-            
-          
-            eventsArray = response;
-            
-            for(var i=0; i<eventsArray.length ; i++)
+            $http.get('/calendarDB').success(function(response) {
+
+                eventsArray = response;
+
+                for(var i=0; i<eventsArray.length ; i++)
                 {
+                    
                     eventsArray[i].toDate = new Date(eventsArray[i].toDate);
                     eventsArray[i].fromDate = new Date(eventsArray[i].fromDate);
 
                 }
-            
 
-        
-            //$scope.events = JSON.parse(response);
-            weekEventConnect();
+            });
 
 
+            update($scope,date);
 
-        });
+
         }
+        
         $scope.nextMonthClick = function() {
 
             var tempM = date.getMonth();
@@ -119,7 +131,6 @@ angular.module('contactsApp')
             date.setDate(date.getDate() - 7);
             
             update($scope,date);
-
 
         }
         
@@ -151,6 +162,7 @@ angular.module('contactsApp')
         }
 
      }]);
+
 
 function Init(date) {
     
@@ -242,6 +254,7 @@ update= function( $scope , date ) {
                     weekEventConnect();
                     $scope.colorWeekBox = weekColorArray;
                     $scope.weekWordsArray = weekWordsArray;
+                    $scope.weekHTMLArray = weekHTMLArray;
 
                 }
 
@@ -314,8 +327,6 @@ function weekEventConnect()
     weekEventArray = new Array(eventsArray.length);
     console.log("2");
 
-    weekColorArray = new Array(70);
-    weekWordsArray = new Array(70);
     
     var fromHour,toHour,fromDay,toDay;
     
@@ -323,15 +334,19 @@ function weekEventConnect()
     for(var i =0 ; i< 70;i++)
         {
             weekColorArray[i] = "";
-            weekWordsArray[i] = "";
+            weekWordsArray[i] = [];
+            weekHTMLArray[i] = "";
         }
 
     for(var i =0 ; i < eventsArray.length ; i++)
         {
                         
+            week[6].setHours(23);
+            week[0].setHours(0);
 
-            if(eventsArray[i].fromDate<week[6] && eventsArray[i].toDate > week[0])
+            if(eventsArray[i].fromDate<=week[6] && eventsArray[i].toDate >= week[0])
                 {
+                    
                     fromHour = eventsArray[i].fromDate.getHours();
                     toHour = eventsArray[i].toDate.getHours();
                     fromDay = eventsArray[i].fromDate.getDay();
@@ -354,8 +369,11 @@ function weekEventConnect()
                     while(tempDay < toDay || (tempDay==toDay && tempHour < toHour))
                         {
                             weekColorArray[hoursMap[tempHour]*7 + tempDay] = "green";
-                            if(weekWordsArray[hoursMap[tempHour]*7 + tempDay].indexOf(eventsArray[i].name) <= -1)
-                            weekWordsArray[hoursMap[tempHour]*7 + tempDay] = weekWordsArray[hoursMap[tempHour]*7 + tempDay] + " " +eventsArray[i].name;
+                            
+                            if(!numInArray(weekWordsArray[hoursMap[tempHour]*7 + tempDay] , i))
+                                {
+                                weekWordsArray[hoursMap[tempHour]*7 + tempDay].push(i);
+                                }
                             tempHour++;
                             
                                 if(tempHour==24) {
@@ -366,8 +384,21 @@ function weekEventConnect()
 
                 }
         }
+    
+    for(var j=0 ; j< 70;j++)
+        {
+            if(weekWordsArray[j].length > 0)
+                {
+                    weekHTMLArray[j] =  weekWordsArray[j].length;
+                }
+        }
+    
+    
+    
 }
+
 function InitMap(){  
+    
     hoursMap["0"] = 0;
     hoursMap["1"] = 0;       
     hoursMap["2"] = 0;
@@ -395,6 +426,18 @@ function InitMap(){
 
 }
 
+function numInArray(array , num){
+    var size = array.length;
+
+    for(var i =0; i< size;i++ )
+        {
+            if(array[i]==num)
+                return true;
+        }
+    
+    return false;
+    
+}
 
 
 
