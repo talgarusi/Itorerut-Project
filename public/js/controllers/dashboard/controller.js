@@ -113,18 +113,19 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     google.charts.setOnLoadCallback(drawStuff);
 
     function drawStuff() {
+    var topList = $scope.getTopLists();
     var data = new google.visualization.arrayToDataTable([
-      ['Tasks ', 'Compleated', 'Uncompleated'],
-      ['Task a', 10, 20],
+      ['', 'Compleated', 'Uncompleated'],
+      ['Task a', 80, 20],
       ['Task b', 24, 66],
-      ['Task c', 30, 70],
+      ['Task c', 30, 40],
       ['Task d', 50, 50],
       ['Task e', 60, 40]
     ]);
 
       var options = {
       chart: {
-        title: 'Tasks Progress',
+//        title: 'Tasks Progress',
         //subtitle: 'Sales, Expenses, and Profit: 2014-2017',
       }
     };
