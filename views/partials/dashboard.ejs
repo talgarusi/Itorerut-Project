@@ -1,5 +1,5 @@
 <!-- Home page with the image and the welcome text -->
-<div class="backcolor" ng-style="{height: h}">
+<div class="container" ng-style="{height: h}">
 
     <!-- Content Wrapper. Contains page content -->
     <div id="Content Wrapper" class="content">
@@ -107,11 +107,15 @@
                                         <span class="text">{{list.name}}</span>
                                         
                                         <!-- ToDo's Remaining Tasks -->
-                                        <small class="label label-danger pull-right"><i class="fa fa-clock-o">{{getRemainingTasks(list)}}%</i></small>
+                                        <!--Warning:-->
+                                        <small class="label label-warning pull-right" ng-if="!isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasks(list)}}%</i></small>
+                                        <!--Danger:-->
+                                        <small class="label label-danger pull-right" ng-if="isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasks(list)}}%</i></small>
+                                        
                                     </li>
                                     
                                     <div class="progress xs">
-                                        <div class="progress-bar progress-bar-green" style="width: {{getRemainingTasks(list)}}%;">
+                                        <div class="progress-bar progress-bar-green" style="width: {{100-getRemainingTasks(list)}}%;">
                                         </div>
                                     </div>
                                 </ul>

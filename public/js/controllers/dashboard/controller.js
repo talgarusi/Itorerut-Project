@@ -8,7 +8,6 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     $scope.lists = [];
     $scope.contacts = [];
     $scope.events = [];
-    $scope.topLists = [];
     
     // GET TASKS LISTS FROM DB:
     $http.get("/listsDB").
@@ -86,18 +85,27 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     
     $scope.getTopLists = function() {
         
-        var top = 4;
-        
+        var top = 5;
+        var topLists = [];
+                
         for (var i=0; i<$scope.lists.length; i++) {
             
             if ($scope.getRemainingTasks($scope.lists[i]) >= 33.33)
-                $scope.topLists.push($scope.lists[i]);
+                topLists.push($scope.lists[i]);
             
-            if ($scope.topLists.length == top)
+            if (topLists.length == top)
                 break;
         }
         
-        return $scope.topLists;
+        return topLists;
     };
+    
+    $scope.isDanger = function(list) {
+        
+        if ($scope.getRemainingTasks(list) >= 66.67)
+            return true;
+        else
+            return false;
+    }
     
 }]); 
