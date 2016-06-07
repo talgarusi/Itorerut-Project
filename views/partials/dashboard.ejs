@@ -93,7 +93,26 @@
 
                     <!-- RIGHT COL: TOP TODO LISTS -->
                     <div class="col-lg-3">
-                        <h1>TODO LISTS</h1>
+                        <div class="box box-primary">
+                            
+                            <div class="box-header">
+                                <i class="ion ion-clipboard"></i>
+                                <h3 class="box-title">Top ToDo Lists:</h3>
+                            </div>
+
+                            <div class="box-body">
+                                <ul class="todo-list" ng-repeat="list in getTopLists()">
+                                    <li>
+                                        <!-- ToDo's Title -->
+                                        <span class="text">{{list.name}}</span>
+                                        
+                                        <!-- ToDo's Remaining Tasks -->
+                                        <small class="label label-danger pull-right"><i class="fa fa-clock-o">{{getRemainingTasks(list)}}%</i></small>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        </div>
                     </div>
                     <!-- END OF RIGHT COL -->
 
