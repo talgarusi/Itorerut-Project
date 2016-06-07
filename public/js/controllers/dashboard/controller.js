@@ -106,6 +106,32 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
             return true;
         else
             return false;
-    }
+    };
+    
+    // FUNCTIONS FOR GRAPH:
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawStuff);
+
+    function drawStuff() {
+    var data = new google.visualization.arrayToDataTable([
+      ['Tasks ', 'Compleated', 'Uncompleated'],
+      ['Task a', 10, 20],
+      ['Task b', 24, 66],
+      ['Task c', 30, 70],
+      ['Task d', 50, 50],
+      ['Task e', 60, 40]
+    ]);
+
+      var options = {
+      chart: {
+        title: 'Tasks Progress',
+        //subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+      }
+    };
+
+
+      var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+      chart.draw(data, options);
+    };
     
 }]); 
