@@ -163,24 +163,77 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
         
         chart.draw(data, options);
     };
+   
     
-//    $scope.dateIsPassed = function(){
+//    $scope.getTopEvents = function() {
 //        
+//        var top = 3;
+//        var topEvents = [];
 //        
-//        var date = str.slice(0, 10);
-//    }
-    $scope.getTopEvents = function() {
+//        var  isPassed =  function(da){
+//            var now  = new Date();
+//            var d = new Date(da);
+//            if (now >= d )
+//                return true;
+//
+//            return false;
+//        }
+//                
+//        for (var i=0; i<$scope.events.length; i++) {
+//          alert($scope.events[i].fromDate);
+////            if($scope.events[i].fromDate != null  )   
+////                {
+//                   // var date = $scope.events[i].fromDate.slice(0, 10);
+//                    alert(date);
+////                }
+//            
+//            if (!isPassed(date))
+//            {
+//                topEvents.push(date);   
+//            }
+//            if (topEvents.length == top)
+//                break;
+//        }
+//        
+//        return topEvents;
+//    };
+    
+     $scope.getTopEvents = function() {
         
         var top = 3;
         var topEvents = [];
+        $scope.names = [];
+         
+         var  isPassed =  function(d){
+            var now  = new Date();
+            var date = new Date(d);
+            if (now >= date )
+                return true;
+
+            return false;
+        }
                 
         for (var i=0; i<$scope.events.length; i++) {
+            if(!$scope.events[i].fromDate || !$scope.events[i].name )
+                continue;
             
-            topEvents.push($scope.events[i]);    
+            var date = $scope.events[i].fromDate.slice(0, 10);
+            if (!isPassed(date))
+            {
+                if(topEvents.indexOf(date) < 0)
+                {
+                    topEvents.push(date);  
+                    $scope.names[date] = $scope.events[i].name;
+                }
+            }
             
             if (topEvents.length == top)
                 break;
         }
+     $scope.getName = function(date)
+     {
+        return $scope.names[date];
+     }
         
         return topEvents;
     };
