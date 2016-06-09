@@ -141,7 +141,6 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     
     // FUNCTIONS FOR GRAPH:
     google.charts.setOnLoadCallback(drawStuff);
-
     function drawStuff() {
         
         var topLists = $scope.getTopLists();
@@ -164,39 +163,6 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
         chart.draw(data, options);
     };
    
-    
-//    $scope.getTopEvents = function() {
-//        
-//        var top = 3;
-//        var topEvents = [];
-//        
-//        var  isPassed =  function(da){
-//            var now  = new Date();
-//            var d = new Date(da);
-//            if (now >= d )
-//                return true;
-//
-//            return false;
-//        }
-//                
-//        for (var i=0; i<$scope.events.length; i++) {
-//          alert($scope.events[i].fromDate);
-////            if($scope.events[i].fromDate != null  )   
-////                {
-//                   // var date = $scope.events[i].fromDate.slice(0, 10);
-//                    alert(date);
-////                }
-//            
-//            if (!isPassed(date))
-//            {
-//                topEvents.push(date);   
-//            }
-//            if (topEvents.length == top)
-//                break;
-//        }
-//        
-//        return topEvents;
-//    };
     
      $scope.getTopEvents = function() {
         
