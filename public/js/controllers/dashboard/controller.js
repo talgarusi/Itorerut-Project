@@ -9,6 +9,8 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     $scope.contacts = [];
     $scope.events = [];
     
+    
+    
     // GET TASKS LISTS FROM DB:
     $http.get("/listsDB").
     then(function(response) {
@@ -160,6 +162,27 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
         };
         
         chart.draw(data, options);
+    };
+    
+//    $scope.dateIsPassed = function(){
+//        
+//        
+//        var date = str.slice(0, 10);
+//    }
+    $scope.getTopEvents = function() {
+        
+        var top = 3;
+        var topEvents = [];
+                
+        for (var i=0; i<$scope.events.length; i++) {
+            
+            topEvents.push($scope.events[i]);    
+            
+            if (topEvents.length == top)
+                break;
+        }
+        
+        return topEvents;
     };
     
     
