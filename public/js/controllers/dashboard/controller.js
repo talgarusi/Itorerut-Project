@@ -76,11 +76,27 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
                 remaining++;
 
         var result = remaining/list.tasks.length*100;
-        if (!result % 1 === 0)
-            result = result.toFixed(2);
+        if (result % 1 === 0)
+            return result;
+        else
+            return result.toFixed(2);
+    };
+    
+    $scope.getCompletedTasks = function(list) {
 
-        return result;
+        if (list.tasks.length == 0) 
+            return 0;
 
+        var completed=0;
+        for (var j=0; j<list.tasks.length; j++)
+            if (list.tasks[j].status)
+                completed++;
+
+        var result = completed/list.tasks.length*100;
+        if (result % 1 === 0)
+            return result;
+        else
+            return result.toFixed(2);
     };
     
     $scope.getTopLists = function() {
@@ -113,26 +129,26 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     google.charts.setOnLoadCallback(drawStuff);
 
     function drawStuff() {
-    var topList = $scope.getTopLists();
-    var data = new google.visualization.arrayToDataTable([
-      ['', 'Compleated', 'Uncompleated'],
-      ['Task a', 80, 20],
-      ['Task b', 24, 66],
-      ['Task c', 30, 40],
-      ['Task d', 50, 50],
-      ['Task e', 60, 40]
-    ]);
+        
+        var topLists = $scope.getTopLists();
+        var data = new google.visualization.arrayToDataTable([
+          ['', 'Compleated', 'Uncompleated'],
+          [topLists[0].name, $scope.getCompletedTasks(topLists[0]), $scope.getRemainingTasks(topLists[0])],
+          [topLists[1].name, $scope.getCompletedTasks(topLists[1]), $scope.getRemainingTasks(topLists[1])],
+          [topLists[2].name, $scope.getCompletedTasks(topLists[2]), $scope.getRemainingTasks(topLists[2])],
+          [topLists[3].name, $scope.getCompletedTasks(topLists[3]), $scope.getRemainingTasks(topLists[3])],
+          [topLists[4].name, $scope.getCompletedTasks(topLists[4]), $scope.getRemainingTasks(topLists[4])]
+        ]);
 
-      var options = {
-      chart: {
-//        title: 'Tasks Progress',
-        //subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-      }
-    };
+        var options = {
+            chart: {
+    //        title: 'Tasks Progress',
+    //        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            }
+        };
 
-
-      var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
-      chart.draw(data, options);
+        var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+        chart.draw(data, options);
     };
     
 }]); 
