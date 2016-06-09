@@ -87,8 +87,8 @@
 
                     <!-- CENTER COL -->
                     <div class="col-lg-6">
-                         <h3 class="box-title">Tasks Progress:</h3><br>
-                        <div id="dual_y_div"  style="height: 300px;" ></div>
+                        <h3 class="box-title" style="margin: auto;">Tasks Progress:</h3><br>
+                        <div id="dual_y_div" style="height: 300px;"></div>
                     </div>
                     <!-- END OF CENTER COL -->
 
@@ -109,14 +109,15 @@
                                         
                                         <!-- ToDo's Remaining Tasks -->
                                         <!--Warning:-->
-                                        <small class="label label-warning pull-right" ng-if="!isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasks(list)}}%</i></small>
+                                        <small class="label label-warning pull-right" ng-if="!isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasksPercents(list)}}%</i></small>
                                         <!--Danger:-->
-                                        <small class="label label-danger pull-right" ng-if="isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasks(list)}}%</i></small>
+                                        <small class="label label-danger pull-right" ng-if="isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasksPercents(list)}}%</i></small>
                                         
                                     </li>
                                     
                                     <div class="progress xs">
-                                        <div class="progress-bar progress-bar-green" style="width: {{getCompletedTasks(list)}}%;">
+                                        <div class="progress-bar progress-bar-green"
+                                             style="width: {{getCompletedTasksPercents(list)}}%;">
                                         </div>
                                     </div>
                                 </ul>

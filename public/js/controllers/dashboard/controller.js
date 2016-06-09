@@ -65,16 +65,22 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     };
         
     // FUNCTIONS FOR TOP TODO LISTS:
-    $scope.getRemainingTasks = function(list) {
-
-        if (list.tasks.length == 0) 
-            return 0;
-
-        var remaining=0;
+    function getRemainingTasks(list) {
+        
+        var remaining = 0;
         for (var j=0; j<list.tasks.length; j++)
             if (!list.tasks[j].status)
                 remaining++;
+        
+        return remaining;
+    }
+    
+    $scope.getRemainingTasksPercents = function(list) {
 
+        if (list.tasks.length == 0)
+            return 0;
+        
+        var remaining = getRemainingTasks(list);
         var result = remaining/list.tasks.length*100;
         if (result % 1 === 0)
             return result;
@@ -82,16 +88,23 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
             return result.toFixed(2);
     };
     
-    $scope.getCompletedTasks = function(list) {
-
-        if (list.tasks.length == 0) 
-            return 0;
-
-        var completed=0;
+    
+    function getCompletedTasks(list) {
+    
+        var completed = 0;
         for (var j=0; j<list.tasks.length; j++)
             if (list.tasks[j].status)
                 completed++;
+       
+        return completed;
+    }
+    
+    $scope.getCompletedTasksPercents = function(list) {
 
+        if (list.tasks.length == 0)
+            return 0;
+        
+        var completed = getCompletedTasks(list);
         var result = completed/list.tasks.length*100;
         if (result % 1 === 0)
             return result;
@@ -106,7 +119,7 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
                 
         for (var i=0; i<$scope.lists.length; i++) {
             
-            if ($scope.getRemainingTasks($scope.lists[i]) >= 33.33)
+            if ($scope.getRemainingTasksPercents($scope.lists[i]) >= 33.33)
                 topLists.push($scope.lists[i]);
             
             if (topLists.length == top)
@@ -118,37 +131,36 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     
     $scope.isDanger = function(list) {
         
-        if ($scope.getRemainingTasks(list) >= 66.67)
+        if ($scope.getRemainingTasksPercents(list) >= 66.67)
             return true;
         else
             return false;
     };
     
     // FUNCTIONS FOR GRAPH:
-    google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawStuff);
 
     function drawStuff() {
         
         var topLists = $scope.getTopLists();
-        var data = new google.visualization.arrayToDataTable([
-          ['', 'Compleated', 'Uncompleated'],
-          [topLists[0].name, $scope.getCompletedTasks(topLists[0]), $scope.getRemainingTasks(topLists[0])],
-          [topLists[1].name, $scope.getCompletedTasks(topLists[1]), $scope.getRemainingTasks(topLists[1])],
-          [topLists[2].name, $scope.getCompletedTasks(topLists[2]), $scope.getRemainingTasks(topLists[2])],
-          [topLists[3].name, $scope.getCompletedTasks(topLists[3]), $scope.getRemainingTasks(topLists[3])],
-          [topLists[4].name, $scope.getCompletedTasks(topLists[4]), $scope.getRemainingTasks(topLists[4])]
-        ]);
-
-        var options = {
-            chart: {
-    //        title: 'Tasks Progress',
-    //        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-            }
-        };
-
+        var data = [];
+        data.push(['', 'Compleated', 'Uncompleated']);
+        
+        if (topLists.length == 0)
+            data.push([' ', 0, 0]);
+        
+        for (var i=0; i<topLists.length; i++)
+            data.push([topLists[i].name, getCompletedTasks(topLists[i]), getRemainingTasks(topLists[i])]);
+        
+        var data = new google.visualization.arrayToDataTable(data);
         var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+        
+        var options = {
+            colors: ['#00ADD8', '#DD4B39']
+        };
+        
         chart.draw(data, options);
     };
+    
     
 }]); 
