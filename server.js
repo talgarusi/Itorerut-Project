@@ -183,6 +183,62 @@ app.get("/eventsDB", function(req, res) {
     });
 });
 
+//calendar events collection DB API
+app.post("/calendarDB", function(req, res) {
+    var newEvent = req.body;
+    
+    db.collection(EVENTS_COLLECTION).insertOne(newEvent, function(err, doc) {
+        if (err) {
+
+        handleError(res, err.message, "Failed to create new event.");
+        } else {
+            res.status(201).json(doc.ops[0]);
+        }
+    });
+});
+
+app.put("/calendarDB/:id", function(req, res) {
+    var updateDoc = req.body;
+    delete updateDoc._id;
+
+    db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to update event");
+        } else {
+            res.status(204).end();
+        }
+    });
+});
+
+app.delete("/calendarDB/:id", function(req, res) {
+    console.log(req.params.id);
+    db.collection(EVENTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+        if (err) {
+            handleError(res, err.message, "Failed to delete event");
+        } else {
+            console.log("delete");
+            res.status(204).end();
+        }
+    });
+});
+
+
+
+
+
+// get all the calendar events
+app.get("/calendarDB", function(req, res) {
+
+  db.collection(EVENTS_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get events.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+
 
 // all other routes direct to index.
 app.get('*', routes.index);

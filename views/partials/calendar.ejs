@@ -1,1 +1,411 @@
-<h2>{{gros}}</h2>
+<div ng-controller="calendarCtrl">
+        <nav clas="navbar navbar-default"><!--Calendar navbar-->
+                <div class="row" >
+                        <div class="col-lg-2">
+                                <span class="calendarword"><i class="fa fa-calendar"></i>Calendar</span>
+                        </div>
+                    <!--week info-->
+
+                    
+
+                    
+<!--button group-->
+                            <div class="container"><left>
+
+                        <div class="col-lg-6">
+
+  <div class="btn-group">
+                                                                                      <button type="button" class="btn btn-primary" ng-click="nextMonthClick()"><span class=" glyphicon glyphicon-chevron-left      "></button>
+                                          <button type="button" class="btn btn-primary" ng-click="backWeekClick()"><span class="glyphicon glyphicon-menu-left"></span></button>
+                                                                              <button class="btn btn-primary" ng-click="today()">Today <span class="glyphicon glyphicon-pushpin"></span></button>
+
+
+                                          <button type="button" class="btn btn-primary" ng-click="nextWeekClick()"><span class="glyphicon glyphicon-menu-right"></span></button>
+                                                                                                             <button type="button" class="btn btn-primary" ng-click="backMonthClick()"><span class=" glyphicon glyphicon-chevron-right      "></button>
+                                                                                                                 </div>  </left>
+                            
+                               <right>                                                                                      
+                         <div class="col-lg-6">
+                                <p class="navbar-text navbar-left">{{dateString}}</p>
+                            </div>
+                                                                                          </right>
+                                </div>
+
+                <!--Calendar bar-->              
+        </nav>
+ 
+        <div class="content">
+                <div class="left-content">
+                        <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                        <div class="btn-group">
+                                             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myCreateModal"><span class="glyphicon glyphicon-tasks"></span>Create Event</button>
+                                            
+                                        </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                        </div><!--End Row-->
+                <div class="row">
+                        <div class="col-sm-10">
+                                <h5>{{miniString}}</h5>
+                        </div>
+                </div>
+
+                    
+<!--MINI CALENDAR-->
+                <div class="row"> <!--Calender-->
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">S</div>   
+                                        <div class="col-md-1 table-bordered {{boxColorArray[0]}}" ng-click = 'moveWeek(0)'>{{monthArray[0].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[7]}}" ng-click = 'moveWeek(7)'>{{monthArray[7].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[14]}}" ng-click = 'moveWeek(14)'>{{monthArray[14].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[21]}}" ng-click = 'moveWeek(21)'>{{monthArray[21].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[28]}}" ng-click = 'moveWeek(28)'>{{monthArray[28].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[35]}}" ng-click = 'moveWeek(35)'>{{monthArray[35].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">M</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[1]}}" ng-click = 'moveWeek(1)'>{{monthArray[1].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[8]}}" ng-click = 'moveWeek(8)'>{{monthArray[8].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[15]}}" ng-click = 'moveWeek(15)'>{{monthArray[15].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[22]}}" ng-click = 'moveWeek(22)'>{{monthArray[22].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[29]}}" ng-click = 'moveWeek(29)'>{{monthArray[29].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[36]}}" ng-click = 'moveWeek(36)'>{{monthArray[36].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">T</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[2]}}" ng-click = 'moveWeek(2)'>{{monthArray[2].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[9]}}" ng-click = 'moveWeek(9)'>{{monthArray[9].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[16]}}" ng-click = 'moveWeek(16)'>{{monthArray[16].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[23]}}" ng-click = 'moveWeek(23)'>{{monthArray[23].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[30]}}" ng-click = 'moveWeek(30)'>{{monthArray[30].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[37]}}" ng-click = 'moveWeek(37)'>{{monthArray[37].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">W</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[3]}}" ng-click = 'moveWeek(3)'>{{monthArray[3].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[10]}}" ng-click = 'moveWeek(10)'>{{monthArray[10].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[17]}}" ng-click = 'moveWeek(17)'>{{monthArray[17].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[24]}}" ng-click = 'moveWeek(24)'>{{monthArray[24].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[31]}}" ng-click = 'moveWeek(31)'>{{monthArray[31].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[38]}}" ng-click = 'moveWeek(38)'>{{monthArray[38].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">TH</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[4]}}" ng-click = 'moveWeek(4)'>{{monthArray[4].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[11]}}" ng-click = 'moveWeek(11)'>{{monthArray[11].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[18]}}" ng-click = 'moveWeek(18)'>{{monthArray[18].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[25]}}" ng-click = 'moveWeek(25)'>{{monthArray[25].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[32]}}" ng-click = 'moveWeek(32)'>{{monthArray[32].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[39]}}" ng-click = 'moveWeek(39)'>{{monthArray[39].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">F</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[5]}}" ng-click = 'moveWeek(5)'>{{monthArray[5].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[12]}}" ng-click = 'moveWeek(12)'>{{monthArray[12].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[19]}}" ng-click = 'moveWeek(19)'>{{monthArray[19].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[26]}}" ng-click = 'moveWeek(26)'>{{monthArray[26].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[33]}}" ng-click = 'moveWeek(33)'>{{monthArray[33].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[40]}}" ng-click = 'moveWeek(40)'>{{monthArray[40].getDate()}}</div>
+                                </div>
+                        </div>
+                        <div class="col-md-1 table-bordered">
+                                <div class="row">
+                                        <div class="col-md-1 table-bordered">S</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[6]}}" ng-click = 'moveWeek(6)'>{{monthArray[6].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[13]}}" ng-click = 'moveWeek(13)'>{{monthArray[13].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[20]}}" ng-click = 'moveWeek(20)'>{{monthArray[20].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[27]}}" ng-click = 'moveWeek(27)'>{{monthArray[27].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[34]}}" ng-click = 'moveWeek(34)'>{{monthArray[34].getDate()}}</div>
+                                        <div class="col-md-1 table-bordered {{boxColorArray[41]}}" ng-click = 'moveWeek(41)'>{{monthArray[41].getDate()}}</div>
+                                </div>
+                        </div>
+                    
+                </div>
+                                    <div class="row" style="">
+                        <div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-heading panel-heading-custom">Event name <h8>{{markEventName}}</h8></div>
+    <div class="panel-body panel-body-custom">Start date <h8>{{markEventFromDate}}</h8></div>
+    <div class="panel-body panel-body-custom">End date <h8>{{markEventToDate}}</h8></div>
+    <div class="panel-body panel-body-custom"><button type="button" class="btn btn-default" ng-click = "editMode()" ng-disabled = "!existsEvent">Edit and more details<span class="glyphicon glyphicon-pencil"></span></button></div>
+
+
+</div>
+
+                        </div>
+                </div>
+        </div><!--End left-content-->
+<!--right content week-calendar or edit event-->
+                <div class="right-content" ng-hide= "!calendarMode">
+
+                        <div class="row">
+                                <div class="col-xs-1 table-bordered red"><h6>GMT-05</h6></div><h8>
+                                <div class="col-xs-2 table-bordered red"><center>Sun {{sunDate}}</center></div>
+                                <div class="col-xs-2 table-bordered red"><center>Mon {{monDate}}</center></div>
+                                <div class="col-xs-2 table-bordered red"><center>Tues {{tuesDate}}</center></div>
+                                <div class="col-xs-2 table-bordered red"><center>Wed {{wedDate}}</center></div>
+                                <div class="col-xs-1 table-bordered red"><center>TH {{thDate}}</center></div>
+                                <div class="col-xs-1 table-bordered red"><center>Fri {{friDate}}</center></div>
+                                <div class="col-xs-1 table-bordered red"><center>Sat {{satDate}}</center></div>
+                            </h8>
+                        </div>
+                    
+                    
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">12am-8am</div>
+                            <div class="col-lg-2 table-bordered {{colorWeekBox[0]}}" ng-click = 'showEvent(0)'><br><span class='label label-default' >{{weekHTMLArray[0]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[1]}}" ng-click = 'showEvent(1)'><br><span class='label label-default' >{{weekHTMLArray[1]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[2]}}" ng-click = 'showEvent(2)'><br><span class='label label-default' >{{weekHTMLArray[2]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[3]}}" ng-click = 'showEvent(3)'><br><span class='label label-default' >{{weekHTMLArray[3]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[4]}}" ng-click = 'showEvent(4)'><br><span class='label label-default' >{{weekHTMLArray[4]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[5]}}" ng-click = 'showEvent(5)'><br><span class='label label-default' >{{weekHTMLArray[5]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[6]}}" ng-click = 'showEvent(6)'><br><span class='label label-default' >{{weekHTMLArray[6]}}</span><br></div>            
+                                       
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">9am<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[7]}}" ng-click = 'showEvent(7)'><br><span class='label label-default' >{{weekHTMLArray[7]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[8]}}" ng-click = 'showEvent(8)'><br><span class='label label-default' >{{weekHTMLArray[8]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[9]}}" ng-click = 'showEvent(9)'><br><span class='label label-default' >{{weekHTMLArray[9]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[10]}}" ng-click = 'showEvent(10)'><br><span class='label label-default' >{{weekHTMLArray[10]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[11]}}" ng-click = 'showEvent(11)'><br><span class='label label-default' >{{weekHTMLArray[11]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[12]}}" ng-click = 'showEvent(12)'><br><span class='label label-default' >{{weekHTMLArray[12]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[13]}}" ng-click = 'showEvent(13)'><br><span class='label label-default' >{{weekHTMLArray[13]}}</span><br></div>            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">10am<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[14]}}" ng-click = 'showEvent(14)'><br><span class='label label-default' >{{weekHTMLArray[14]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[15]}}" ng-click = 'showEvent(15)'><br><span class='label label-default' >{{weekHTMLArray[15]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[16]}}" ng-click = 'showEvent(16)'><br><span class='label label-default' >{{weekHTMLArray[16]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[17]}}" ng-click = 'showEvent(17)'><br><span class='label label-default' >{{weekHTMLArray[17]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[18]}}" ng-click = 'showEvent(18)'><br><span class='label label-default' >{{weekHTMLArray[18]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[19]}}" ng-click = 'showEvent(19)'><br><span class='label label-default' >{{weekHTMLArray[19]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[20]}}" ng-click = 'showEvent(20)'><br><span class='label label-default' >{{weekHTMLArray[20]}}</span><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">11am<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[21]}}" ng-click = 'showEvent(21)'><br><span class='label label-default' >{{weekHTMLArray[21]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[22]}}" ng-click = 'showEvent(22)'><br><span class='label label-default' >{{weekHTMLArray[22]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[23]}}" ng-click = 'showEvent(23)'><br><span class='label label-default' >{{weekHTMLArray[23]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[24]}}" ng-click = 'showEvent(24)'><br><span class='label label-default' >{{weekHTMLArray[24]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[25]}}" ng-click = 'showEvent(25)'><br><span class='label label-default' >{{weekHTMLArray[25]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[26]}}" ng-click = 'showEvent(26)'><br><span class='label label-default' >{{weekHTMLArray[26]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[27]}}" ng-click = 'showEvent(27)'><br><span class='label label-default' >{{weekHTMLArray[27]}}</span><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">12pm<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[28]}}" ng-click = 'showEvent(28)'><br><span class='label label-default' >{{weekHTMLArray[28]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[29]}}" ng-click = 'showEvent(29)'><br><span class='label label-default' >{{weekHTMLArray[29]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[30]}}" ng-click = 'showEvent(30)'><br><span class='label label-default' >{{weekHTMLArray[30]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[31]}}" ng-click = 'showEvent(31)'><br><span class='label label-default' >{{weekHTMLArray[31]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[32]}}" ng-click = 'showEvent(32)'><br><span class='label label-default' >{{weekHTMLArray[32]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[33]}}" ng-click = 'showEvent(33)'><br><span class='label label-default' >{{weekHTMLArray[33]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[34]}}" ng-click = 'showEvent(34)'><br><span class='label label-default' >{{weekHTMLArray[34]}}</span><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">1pm<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[35]}}" ng-click = 'showEvent(35)'><br><span class='label label-default' >{{weekHTMLArray[35]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[36]}}" ng-click = 'showEvent(36)'><br><span class='label label-default' >{{weekHTMLArray[36]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[37]}}" ng-click = 'showEvent(37)'><br><span class='label label-default' >{{weekHTMLArray[37]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[38]}}" ng-click = 'showEvent(38)'><br><span class='label label-default' >{{weekHTMLArray[38]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[39]}}" ng-click = 'showEvent(39)'><br><span class='label label-default' >{{weekHTMLArray[39]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[40]}}" ng-click = 'showEvent(40)'><br><span class='label label-default' >{{weekHTMLArray[40]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[41]}}" ng-click = 'showEvent(41)'><br><span class='label label-default' >{{weekHTMLArray[41]}}</span><br></div>                                    
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">2pm<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[42]}}" ng-click = 'showEvent(42)'><br><span class='label label-default' >{{weekHTMLArray[42]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[43]}}" ng-click = 'showEvent(43)'><br><span class='label label-default' >{{weekHTMLArray[43]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[44]}}" ng-click = 'showEvent(44)'><br><span class='label label-default' >{{weekHTMLArray[44]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[45]}}" ng-click = 'showEvent(45)'><br><span class='label label-default' >{{weekHTMLArray[45]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[46]}}" ng-click = 'showEvent(46)'><br><span class='label label-default' >{{weekHTMLArray[46]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[47]}}" ng-click = 'showEvent(47)'><br><span class='label label-default' >{{weekHTMLArray[47]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[48]}}" ng-click = 'showEvent(48)'><br><span class='label label-default' >{{weekHTMLArray[48]}}</span><br></div>                                    
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">3pm<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[49]}}" ng-click = 'showEvent(49)'><br><span class='label label-default' >{{weekHTMLArray[49]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[50]}}" ng-click = 'showEvent(50)'><br><span class='label label-default' >{{weekHTMLArray[50]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[51]}}" ng-click = 'showEvent(51)'><br><span class='label label-default' >{{weekHTMLArray[51]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[52]}}" ng-click = 'showEvent(52)'><br><span class='label label-default' >{{weekHTMLArray[52]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[53]}}" ng-click = 'showEvent(53)'><br><span class='label label-default' >{{weekHTMLArray[53]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[54]}}" ng-click = 'showEvent(54)'><br><span class='label label-default' >{{weekHTMLArray[54]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[55]}}" ng-click = 'showEvent(55)'><br><span class='label label-default' >{{weekHTMLArray[55]}}</span><br></div>                            
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">4pm<br><br></div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[56]}}" ng-click = 'showEvent(56)'><br><span class='label label-default' >{{weekHTMLArray[56]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[57]}}" ng-click = 'showEvent(57)'><br><span class='label label-default' >{{weekHTMLArray[57]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[58]}}" ng-click = 'showEvent(58)'><br><span class='label label-default' >{{weekHTMLArray[58]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[59]}}" ng-click = 'showEvent(59)'><br><span class='label label-default' >{{weekHTMLArray[59]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[60]}}" ng-click = 'showEvent(60)'><br><span class='label label-default' >{{weekHTMLArray[60]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[61]}}" ng-click = 'showEvent(61)'><br><span class='label label-default' >{{weekHTMLArray[61]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[62]}}" ng-click = 'showEvent(62)'><br><span class='label label-default' >{{weekHTMLArray[62]}}</span><br></div>                                    
+                        </div><!--End Row-->
+                        <div class="row">
+                                <div class="col-lg-1 table-bordered red">5pm-12am</div>
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[63]}}" ng-click = 'showEvent(63)'><br><span class='label label-default' >{{weekHTMLArray[63]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[64]}}" ng-click = 'showEvent(64)'><br><span class='label label-default' >{{weekHTMLArray[64]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[65]}}" ng-click = 'showEvent(65)'><br><span class='label label-default' >{{weekHTMLArray[65]}}</span><br></div>    
+                                <div class="col-lg-2 table-bordered {{colorWeekBox[66]}}" ng-click = 'showEvent(66)'><br><span class='label label-default' >{{weekHTMLArray[66]}}</span><br></div>    
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[67]}}" ng-click = 'showEvent(67)'><br><span class='label label-default' >{{weekHTMLArray[67]}}</span><br></div>
+                                <div class="col-lg-1 table-bordered {{colorWeekBox[68]}}" ng-click = 'showEvent(68)'><br><span class='label label-default' >{{weekHTMLArray[68]}}</span><br></div>    
+                                    <div class="col-lg-1 table-bordered {{colorWeekBox[69]}}" ng-click = 'showEvent(69)'><br><span class='label label-default' >{{weekHTMLArray[69]}}</span><br></div>                            
+                        </div><!--End Row-->
+                        </div>
+
+                                    <div class="right-content" ng-hide= "calendarMode">
+                                                               <div class="row">
+                                <div class="col-xs-12 table-bordered red"><span class="glyphicon glyphicon-edit"></span> Edit event</div>
+                                <div class="row">
+                                    
+                                    <div class="col-sm-12"></br></div>
+                                    <div class="col-sm-12"></br></div>
+                                    <div class="col-sm-12"></br></div></div>
+
+                                    <div class="col-sm-12">
+                                        <div class="input-group margin-bottom-sm">
+                                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw">Event name</i></span>
+                                            <input name="eventName" ng-disabled = "!changeDetails" type="text" ng-model='currentEvent.name' ng-minlength="1" class="event-name" required>
+                                        </div>      
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group margin-bottom-sm">
+                                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw">From Date</i></span>
+                                            <input type="datetime-local" ng-disabled = "!changeDetails" id="fromDate" name="fromDate" ng-change="change(1)"  ng-model="currentEvent.fromDate"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group margin-bottom-sm">
+                                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw">To Date</i></span>
+                                            <input type="datetime-local" ng-disabled = "!changeDetails" id="toDate" name="toDate" ng-change="change(1)" ng-model="currentEvent.toDate" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">           
+                                        <h6 class="modal-title">Descripton <span class="glyphicon glyphicon-comment"></span></h6> 
+                                        <textarea ng-disabled = "!changeDetails" rows="4" cols="50" name = "descripton" ng-model='currentEvent.description'></textarea>          
+                                    </div>
+                                </div>
+                                               <div class="col-sm-12">           
+                                                        
+                                <button type="button" class="btn btn-default" data-dismiss="modal"
+                                            class="btn btn-default" data-dismiss="modal" ng-click="goBack()"
+                                            >Back <span class="
+                            glyphicon glyphicon-log-out"></button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"
+                                            class="btn btn-default" data-dismiss="modal" ng-click="openFields()"
+                                            >Edit <span class="
+                            glyphicon glyphicon-unlock"></button>
+                                              <button type="button" class="btn btn-default" data-dismiss="modal"
+                                            class="btn btn-default" data-dismiss="modal" ng-click="deleteData()"
+                                            >Delete event <span class="
+                            glyphicon glyphicon-trash"></button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                                            ng-disabled="!(currentEvent.name.length>0 && validDates)" class="btn btn-default" data-dismiss="modal" ng-click="changeData()"
+                                            >Save and close <span class="glyphicon glyphicon-floppy-saved"></button>
+                                </div>
+                                <div class="col-sm-12">  
+                                        <div class="alert alert-info">
+                                            <strong><span class = "glyphicon glyphicon-info-sign"></span>Info!</strong> Required fields are: "Event name", "From date" and "To date"
+                                            . also "From date" must to be less than "To date".
+                                    </div>
+                                </div>
+
+        </div><!--End Content-->
+</div>
+
+<!-- Modals -->
+<!--use by 'Create event' button-->
+
+<div id="myCreateModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        <h3 class="modal-title"><span class="glyphicon glyphicon-tasks"></span>Create Event</h3>
+      </div>
+        <div class="modal-body">
+        <form name="myForm">
+        
+            <div class="modal-body">
+                
+                                      <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw">Event name</i></span>
+                        <input name="eventName" type="text" ng-model='event.name' ng-minlength="1" class="event-name" required>
+                        </div>      
+                        </div>
+                </div>
+
+
+                    <div class="row">
+                            <div class="col-sm-12">
+                        <div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw">From Date</i></span>
+  <input type="datetime-local" id="fromDate" name="fromDate" ng-change="change(0)"  ng-model="event.fromDate"/>
+                                </div></div>
+                        
+
+                        </div>
+                                                              <div class="row">
+                            <div class="col-sm-12">
+                                                        <div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw">To Date</i></span>
+  <input type="datetime-local" id="toDate" name="toDate" ng-change="change(0)" ng-model="event.toDate" />
+                                </div></div>
+                        </div>
+
+                          <div class="row">
+
+
+                        <div class="col-sm-12">
+                            
+                            <h6 class="modal-title">Descripton <span class="glyphicon glyphicon-comment"></span></h6> 
+                            <textarea rows="4" cols="50" name = "descripton" ng-model='event.description'></textarea>
+                            
+                        </div>
+
+                    </div>
+            </div>
+        </form>
+        </div>
+        <!--need to fix-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-disabled="!( myForm.eventName.$valid )" class="btn btn-default" data-dismiss="modal" ng-click="sendData()"
+                >Save and close <span class="glyphicon glyphicon-floppy-saved"></button>
+
+          
+    </div>
+          <div class="alert alert-info">
+              <strong><span class = "glyphicon glyphicon-info-sign"></span>Info!</strong> Required fields are: "Event name", "From date" and "To date"
+. also "From date" must to be less than "To date".</div>
+      </div>
+  </div>
+</div>
+
+
+ 

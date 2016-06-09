@@ -1,0 +1,143 @@
+
+/*
+ * CSS Calendar
+ -----------------------------*/
+
+
+ol.calendar    {width: 70%;margin:0 auto;display:block; min-height: 620px;
+			background: url(https://www.cisco.com/assets/sol/sb/RV320_Emulators/RV320_Emulator_v1-2-1-14/images/body_bg.jpg) no-repeat;background-size: cover;}
+li		{list-style:none;}
+p.link		{text-align:center;display: block;}
+h1		{ width: 200px;height:76px;
+			background:url(public\images\calendar-br.jpg);text-indent:-9999px; margin: 15px auto; }
+
+/*
+ * Day styles
+ -------------------------*/
+li li		{width:10em;height:7em;float:left;margin:.2em; padding:.4em;overflow:auto;
+			background-color: #ccd7e4; bottom right no-repeat; }
+
+/*
+ * Day content (UL/OL & P)
+ -------------------------*/
+li li p	 {font-size:.5em;display:block;}
+li li ol	 {width:auto;}
+li li ul li,
+li li ol li     {font-size:.7em;display:block;height:auto;width:auto; background: none;
+			margin:1px;padding:.2em 0;float:none;}
+
+/*
+ * Holiday class
+ -------------------------*/
+li li.holiday    {  }
+
+/*
+ * Inactive months
+ -------------------------*/
+li#lastmonth li,
+li#nextmonth li    { background: url(../../../images/calendar/day-bg-inactive.png);}
+
+
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+
+
+/* custom css stylesheet */
+.topheader{
+        background: #151515;
+}
+.topheader a{
+        color:#B2B2B2;
+        padding: 10px;
+}
+.topheader a:hover{
+        color: #FFF;
+        text-decoration: none;
+}
+.customcontainer{
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-right: auto;
+        margin-left: auto;
+}
+.customcontainer a:nth-of-type(1):before{
+        content: "+";
+}
+.calendarword{
+        color:red;
+        font-size: 24px;
+        padding-left: 20px;
+        padding-top: 20px;
+}
+.rutgerslogo{
+        padding: 10px;
+        width: 70%;
+}
+.content{
+        width:100%;
+        height: 550px;
+        border-top: 1px solid #EBEBEB;
+}
+.left-content{
+        margin: auto;
+        display:inline-block;
+        width: 18%;
+        height: 100%;
+}
+.right-content{
+        padding-left: 12px;
+        margin: auto;
+        display:inline-block;
+        width: 80%;
+        height: 100%;
+}
+.h6pad{
+        padding-left: 25px;
+}
+.grey{
+        color: #b2b2b2;
+}
+.green{
+            background-color:#E9D1D1;
+
+}
+.red{
+        background-color:#4285f4;
+}
+.backColor{
+            background-color: #bafdff;
+}
+
+/*
+for event`s name in the big calendar
+*/
+h7 {
+        font-size:x-small;
+}
+
+.panel-default > .panel-heading-custom{
+  background-image: none;
+  background-color: #cf5b95;
+  color: #ffffff;
+}
+
+h8 {
+	font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+    font-size: 12px;
+}
