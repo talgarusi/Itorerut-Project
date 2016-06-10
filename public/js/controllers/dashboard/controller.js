@@ -9,17 +9,17 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     $scope.contacts = [];
     $scope.events = [];
     
-    
-    
     // GET TASKS LISTS FROM DB:
     $http.get("/listsDB").
     then(function(response) {
         $scope.lists = response.data;
+        google.charts.setOnLoadCallback(drawStuff);
     }, 
-         function(response) {
-        console.log("Error retrieving lists.");
+        function(response) {
+            console.log("Error retrieving lists.");
+            
     });
-
+    
     // GET CONTACTS FROM DB:
     $http.get("/contactsDB").
     then(function(response) {
@@ -140,7 +140,7 @@ angular.module('contactsApp').controller('dashCtrl' ,['$scope', '$http', functio
     };
     
     // FUNCTIONS FOR GRAPH:
-    google.charts.setOnLoadCallback(drawStuff);
+    
     function drawStuff() {
         
         var topLists = $scope.getTopLists();
