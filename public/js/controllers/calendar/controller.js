@@ -48,7 +48,7 @@ angular.module('contactsApp')
            $scope.changeDetails = false;
            
 
-           $http.get('/calendarDB').success(function(response) {
+        $http.get('/calendarDB').success(function(response) {
 
         eventsArray = response;
 
@@ -140,10 +140,14 @@ angular.module('contactsApp')
             
             $http.put("/calendarDB", $scope.currentEvent).
                 then(function(response) {
-                    console.log("List updated");
+                    console.log("Event updated");
+                
+                    update($scope,date);
+            
+                    $location.url('/calendar');
                 }, 
                 function(response) {
-                    console.log("Error update list.");
+                    console.log("Error update event.");
                 });
             
             $scope.currentEvent = null;
@@ -153,7 +157,6 @@ angular.module('contactsApp')
             $scope.existsEvent = false;
             
             $http.get('/calendarDB').success(function(response) {
-                
                 eventsArray = response;
 
                 for(var i=0; i<eventsArray.length ; i++)
@@ -167,9 +170,6 @@ angular.module('contactsApp')
 
             });
             
-            update($scope,date);
-            
-            $location.url('/calendar');
 
         };
            
@@ -179,10 +179,26 @@ angular.module('contactsApp')
             var id = $scope.currentEvent._id;
             $http.delete("/calendarDB/" + id).
                 then(function(response) {
-                    console.log("Contact deleted");
+                    console.log("event deleted");
+                    var k= 0;
+                    console.log(eventsArray.length +"before");
+                    for(k = 0 ;k<eventsArray.length;k++ )
+                        {
+                            if(eventsArray[k]._id == id)
+                                {
+                                    eventsArray.splice(k, 1);
+                                    break;
+                                }
+                        }
+                                    console.log(eventsArray.length +"after");
+                
+                        update($scope,date);
+                        weekEventConnect();
+                        $location.url('/calendar');
+
                 }, 
                 function(response) {
-                    console.log("Error deleteing contact.");
+                    console.log("Error deleteing event.");
                 });
             
             $scope.currentEvent = null;
@@ -192,29 +208,7 @@ angular.module('contactsApp')
             $scope.existsEvent = false;
             $scope.validDates = false;
 
-            
-            
-            
-            $http.get('/calendarDB').success(function(response) {
 
-                eventsArray = response;
-
-                for(var i=0; i<eventsArray.length ; i++)
-                {
-                    eventsArray[i].toDate = new Date(eventsArray[i].toDate);
-                    eventsArray[i].fromDate = new Date(eventsArray[i].fromDate);
-
-                }
-                
-                $scope.eventsArray = eventsArray;
-
-
-
-            });
-
-            update($scope,date);
-
-            $location.url('/calendar');
 
         };
 
@@ -234,10 +228,23 @@ angular.module('contactsApp')
         };
         
         $scope.sendData = function(){
-            $http.post('/calendarDB', $scope.event).success(function(response) {
-            });
+            $http.post('/calendarDB', $scope.event).then(function(response) {
+                    console.log("Event added");
+                
+                eventsArray[eventsArray.length] = $scope.event;
+                
+                
+                
+
+                        update($scope,date);
+                        $location.url('/calendar');
+
+                }, 
+                function(response) {
+                    console.log("Error deleteing event.");
+                });
             
-            
+            /*
             $http.get('/calendarDB').success(function(response) {
                 
                 eventsArray = response;
@@ -250,12 +257,7 @@ angular.module('contactsApp')
                 }
 
 
-            });
-
-
-            update($scope,date);
-
-            $location.url('/calendar');
+            });*/
 
 
 
@@ -401,6 +403,8 @@ function dateString() {
 
 //update the week calendar
 update= function( $scope , date ) {
+            console.log(eventsArray.length);
+
             if(date != null)
                 {
                     
@@ -484,6 +488,8 @@ function InitMonth(date) {
 
 function weekEventConnect()
 {
+    
+
     weekEventArray = new Array(eventsArray.length);
 
     
@@ -496,6 +502,7 @@ function weekEventConnect()
             weekWordsArray[i] = [];
             weekHTMLArray[i] = "";
         }
+    
     for(var i =0 ; i < eventsArray.length ; i++)
         {
                         
@@ -527,7 +534,7 @@ function weekEventConnect()
                     while(tempDay < toDay || (tempDay==toDay && tempHour < toHour))
                         {
                             weekColorArray[hoursMap[tempHour]*7 + tempDay] = "green";
-                            
+                            console.log(hoursMap[tempHour]*7 + tempDay +"number of marked box");
                             if(!numInArray(weekWordsArray[hoursMap[tempHour]*7 + tempDay] , i))
                                 {
                                     weekWordsArray[hoursMap[tempHour]*7 + tempDay].push(i);
