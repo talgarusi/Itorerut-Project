@@ -101,6 +101,8 @@ app.get("/contactDB/:id", function(req, res) {
 app.put("/contactDB/:id", function(req, res) {
     var updateDoc = req.body;
     delete updateDoc._id;
+    
+
 
     db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
         if (err) {
@@ -197,11 +199,12 @@ app.post("/calendarDB", function(req, res) {
     });
 });
 
-app.put("/calendarDB/:id", function(req, res) {
+app.put("/calendarDB", function(req, res) {
     var updateDoc = req.body;
+    var id = updateDoc._id;
     delete updateDoc._id;
 
-    db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+    db.collection(EVENTS_COLLECTION).updateOne({_id: new ObjectID(id)}, updateDoc, function(err, doc) {
         if (err) {
             handleError(res, err.message, "Failed to update event");
         } else {
