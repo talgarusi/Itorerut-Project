@@ -81,14 +81,14 @@ angular.module('contactsApp')
 
   $scope.initEvent = function()
   {
-    /*
+    
     if($scope.event == null) return;
 
     $scope.event.name = "";
     $scope.event.toDate = null;
     $scope.event.fromDate = null;
     $scope.validDates = false;
-    */
+    
   }
   /*
   in the edit mode - make the input fields able or disable to edit

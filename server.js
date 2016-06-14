@@ -3,11 +3,11 @@ var routes = require('./routes');
 var mongodb = require("mongodb");
 var assert = require('assert'); //unit tests
 var bodyParser = require("body-parser");
+var validation = require('./validation/validator');
 var ObjectID = mongodb.ObjectID;
 var url = 'mongodb://admin:admin@ds017862.mlab.com:17862/itorerutdb';
-//var url = 'mongodb://localhost:27017/test';
-//var url = 'mongodb://admin:admin@ds036069.mlab.com:36069/vms_db';
 
+var db;
 var CONTACTS_COLLECTION = "contacts";
 var LISTS_COLLECTION = "lists";
 var EVENTS_COLLECTION = "events";
@@ -27,7 +27,7 @@ app.get('/partials/:name', routes.partials);
 /*  Create a database variable outside of the database connection callback
  *   to reuse the connection pool in your app.
  */
-var db;
+
 
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(url, function (err, database) {
@@ -37,14 +37,14 @@ mongodb.MongoClient.connect(url, function (err, database) {
   }
 
   // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
-
+    db = database;
+    console.log("Database connection ready");
+ 
   // Initialize the app.
   var server = app.listen(process.env.PORT || 3000, function () {
       var port = server.address().port;
       console.log("App now running on port", port);
-  });
+  }); 
 });
 
 
@@ -73,13 +73,18 @@ app.get("/contactsDB", function(req, res) {
 
 app.post("/contactsDB", function(req, res) {
     var newContact = req.body;
-    db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to create new contact.");
-        } else {
-            res.status(201).json(doc.ops[0]);
-        }
-    });
+    
+    if(!validation.validateContactPost(newContact))
+        console.log("Contact object is not valid");
+    else{
+        db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to create new contact.");
+            } else {
+                res.status(201).json(doc.ops[0]);
+            }
+        });   
+    }
 });
 
 /*  "/contactDB/:id"
@@ -189,6 +194,8 @@ app.get("/eventsDB", function(req, res) {
 app.post("/calendarDB", function(req, res) {
     var newEvent = req.body;
     
+    
+    
     db.collection(EVENTS_COLLECTION).insertOne(newEvent, function(err, doc) {
         if (err) {
 
@@ -240,8 +247,6 @@ app.get("/calendarDB", function(req, res) {
     }
   });
 });
-
-
 
 // all other routes direct to index.
 app.get('*', routes.index);
