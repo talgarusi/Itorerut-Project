@@ -114,7 +114,7 @@ ol.calendar    {width: 70%;margin:0 auto;display:block; min-height: 620px;
 					color: #b2b2b2;
 				}
 				.markEvent{
-					background-color:rgb(255,255,0);
+					background-color:#F2F407;
 					cursor:pointer;
 
 				}
@@ -135,7 +135,7 @@ ol.calendar    {width: 70%;margin:0 auto;display:block; min-height: 620px;
 
 				.panel-default > .panel-heading-custom{
 					background-image: none;
-					background-color: #cf5b95;
+					background-color: #F2F407;
 					color: #ffffff;
 				}
 
