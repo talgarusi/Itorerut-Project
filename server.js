@@ -11,7 +11,7 @@ var db;
 var CONTACTS_COLLECTION = "contacts";
 var LISTS_COLLECTION = "lists";
 var EVENTS_COLLECTION = "events";
-                     
+
 var app = express();
 
 /*
@@ -31,20 +31,20 @@ app.get('/partials/:name', routes.partials);
 
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(url, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+    if (err) {
+        console.log(err);
+        process.exit(1);
+    }
 
-  // Save database object from the callback for reuse.
+    // Save database object from the callback for reuse.
     db = database;
     console.log("Database connection ready");
- 
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 3000, function () {
-      var port = server.address().port;
-      console.log("App now running on port", port);
-  }); 
+
+    // Initialize the app.
+    var server = app.listen(process.env.PORT || 3000, function () {
+        var port = server.address().port;
+        console.log("App now running on port", port);
+    }); 
 });
 
 
@@ -52,8 +52,8 @@ mongodb.MongoClient.connect(url, function (err, database) {
 
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).json({"error": message});
+    console.log("ERROR: " + reason);
+    res.status(code || 500).json({"error": message});
 }
 
 /*  "/contactsDB"
@@ -73,10 +73,10 @@ app.get("/contactsDB", function(req, res) {
 
 app.post("/contactsDB", function(req, res) {
     var newContact = req.body;
-    
+
     if(!validation.validateContactPost(newContact))
         console.log("Contact object is not valid");
-    else{
+    else {
         db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
             if (err) {
                 handleError(res, err.message, "Failed to create new contact.");
@@ -106,16 +106,19 @@ app.get("/contactDB/:id", function(req, res) {
 app.put("/contactDB/:id", function(req, res) {
     var updateDoc = req.body;
     delete updateDoc._id;
-    
 
+    if(!validation.validateContactPost(updateDoc))
+        console.log("Contact object is not valid");
+    else {
 
-    db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to update contact");
-        } else {
-            res.status(204).end();
-        }
-    });
+        db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to update contact");
+            } else {
+                res.status(204).end();
+            }
+        });
+    }
 });
 
 app.delete("/contactDB/:id", function(req, res) {
@@ -147,13 +150,18 @@ app.get("/listsDB", function(req, res) {
 
 app.post("/listsDB", function(req, res) {
     var newList = req.body;
-    db.collection(LISTS_COLLECTION).insertOne(newList, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to create new list.");
-        } else {
-            res.status(201).json(doc.ops[0]);
-        }
-    });
+    if (!validation.validateListPost(newList))
+        console.log("List object is not valid");
+    else {
+
+        db.collection(LISTS_COLLECTION).insertOne(newList, function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to create new list.");
+            } else {
+                res.status(201).json(doc.ops[0]);
+            }
+        });
+    }
 });
 
 app.put("/listsDB", function(req, res) {
@@ -161,13 +169,17 @@ app.put("/listsDB", function(req, res) {
     var id = updateDoc._id;
     delete updateDoc._id;
 
-    db.collection(LISTS_COLLECTION).updateOne({_id: new ObjectID(id)}, updateDoc, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to update list");
-        } else {
-            res.status(204).end();
-        }
-    });
+    if (!validation.validateListPost(updateDoc))
+        console.log("List object is not valid");
+    else {
+        db.collection(LISTS_COLLECTION).updateOne({_id: new ObjectID(id)}, updateDoc, function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to update list");
+            } else {
+                res.status(204).end();
+            }
+        });
+    }
 });
 
 app.delete("/listsDB/:id", function(req, res) {
@@ -180,7 +192,10 @@ app.delete("/listsDB/:id", function(req, res) {
     });
 });
 
-app.get("/eventsDB", function(req, res) {
+//calendar events collection DB API
+// get all the calendar events
+app.get("/calendarDB", function(req, res) {
+
     db.collection(EVENTS_COLLECTION).find({}).toArray(function(err, docs) {
         if (err) {
             handleError(res, err.message, "Failed to get events.");
@@ -190,20 +205,21 @@ app.get("/eventsDB", function(req, res) {
     });
 });
 
-//calendar events collection DB API
 app.post("/calendarDB", function(req, res) {
     var newEvent = req.body;
-    
-    
-    
-    db.collection(EVENTS_COLLECTION).insertOne(newEvent, function(err, doc) {
-        if (err) {
+    if (!validation.validateEventPost(newEvent))
+        console.log("Event object is not valid");
+    else {
 
-        handleError(res, err.message, "Failed to create new event.");
-        } else {
-            res.status(201).json(doc.ops[0]);
-        }
-    });
+        db.collection(EVENTS_COLLECTION).insertOne(newEvent, function(err, doc) {
+            if (err) {
+
+                handleError(res, err.message, "Failed to create new event.");
+            } else {
+                res.status(201).json(doc.ops[0]);
+            }
+        });
+    }
 });
 
 app.put("/calendarDB", function(req, res) {
@@ -211,13 +227,17 @@ app.put("/calendarDB", function(req, res) {
     var id = updateDoc._id;
     delete updateDoc._id;
 
-    db.collection(EVENTS_COLLECTION).updateOne({_id: new ObjectID(id)}, updateDoc, function(err, doc) {
-        if (err) {
-            handleError(res, err.message, "Failed to update event");
-        } else {
-            res.status(204).end();
-        }
-    });
+    if (!validation.validateEventPost(updateDoc))
+        console.log("Event object is not valid");
+    else {
+        db.collection(EVENTS_COLLECTION).updateOne({_id: new ObjectID(id)}, updateDoc, function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to update event");
+            } else {
+                res.status(204).end();
+            }
+        });
+    }
 });
 
 app.delete("/calendarDB/:id", function(req, res) {
@@ -230,22 +250,6 @@ app.delete("/calendarDB/:id", function(req, res) {
             res.status(204).end();
         }
     });
-});
-
-
-
-
-
-// get all the calendar events
-app.get("/calendarDB", function(req, res) {
-
-  db.collection(EVENTS_COLLECTION).find({}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get events.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
 });
 
 // all other routes direct to index.

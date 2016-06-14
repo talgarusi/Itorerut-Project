@@ -6,7 +6,7 @@
 
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          
+
         </section>
 
         <!-- Main content -->
@@ -69,45 +69,51 @@
             </section>
             <!-- END OF BOXES SECTION -->
 
-
-            <!-- MAIN SECTION -->
+            <!-- LISTS SECTION -->
             <section>
 
-                <!-- MAIN ROW -->
+                <!-- LISTS ROW -->
                 <div class="row">
 
                     <!-- LEFT COL -->
-                    <div class="col-lg-3">
-<!--                        <h1>Calendar</h1>-->
-                        
-                        <div class="box-header">
+                    <div class="col-lg-8">
+                        <div class="box box-primary">
+                            <div class="box-header">
                                 <i class="ion ion-clipboard"></i>
-                                <h3 class="box-title">Future Evantes:</h3>
+                                <h3 class="box-title">Upcoming Events:</h3>
+                            </div>
+                            <ul class="event-list" ng-repeat="event in getTopEvents()">
+                                <li>
+                                    <time datetime="2014-07-20 0000">
+                                        <span class="day">{{getEventDay(event)}}</span>
+                                        <span class="month">{{getEventMonth(event)}}</span>
+                                    </time>
+                                    <div class="info">
+                                        <h2 class="title">{{event.name}}</h2>
+                                        <p class="desc">{{event.description}}</p>
+                                        <h3 style="margin: auto;">
+                                            <span class="label label-default pull-right" style="width: 50%;">
+                                                &nbsp;From:&nbsp;
+                                                {{ event.fromDate | date:"dd/MM/yyyy"}}
+                                                &nbsp;On:&nbsp;
+                                                {{ event.fromDate | date:"hh:mm"}}
+                                                <br>
+                                                To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{ event.toDate | date:"dd/MM/yyyy"}}
+                                                &nbsp;On:&nbsp;
+                                                {{ event.toDate | date:"hh:mm"}}
+                                            </span>
+                                        </h3>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <ul  ng-repeat="event in getTopEvents()">
-                            <li>
-                                <div class="well">
-                                    <h4 class="text-primary"><span class="label label-primary pull-right">ON: {{event}}</span> {{getName(event)}} </h4>
-                                </div>
-                            </li>
-                        </ul>
-                      
-                        
                     </div>
-
                     <!-- END OF LEFT COL -->
 
-                    <!-- CENTER COL -->
-                    <div class="col-lg-6">
-                        <h3 class="box-title" style="margin: auto;">Tasks Progress:</h3><br>
-                        <div id="dual_y_div" style="height: 300px;"></div>
-                    </div>
-                    <!-- END OF CENTER COL -->
-
                     <!-- RIGHT COL: TOP TODO LISTS -->
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="box box-primary">
-                            
                             <div class="box-header">
                                 <i class="ion ion-clipboard"></i>
                                 <h3 class="box-title">Top ToDo Lists:</h3>
@@ -118,15 +124,15 @@
                                     <li>
                                         <!-- ToDo's Title -->
                                         <span class="text">{{list.name}}</span>
-                                        
+
                                         <!-- ToDo's Remaining Tasks -->
                                         <!--Warning:-->
                                         <small class="label label-warning pull-right" ng-if="!isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasksPercents(list)}}%</i></small>
                                         <!--Danger:-->
                                         <small class="label label-danger pull-right" ng-if="isDanger(list)"><i class="fa fa-clock-o">Remaining: {{getRemainingTasksPercents(list)}}%</i></small>
-                                        
+
                                     </li>
-                                    
+
                                     <div class="progress xs">
                                         <div class="progress-bar progress-bar-green"
                                              style="width: {{getCompletedTasksPercents(list)}}%;">
@@ -134,16 +140,30 @@
                                     </div>
                                 </ul>
                             </div>
-                            
-                        </div>
+                        </div>              
+
+
                     </div>
                     <!-- END OF RIGHT COL -->
 
                 </div>
-                <!-- END OF MAIN ROW -->
+                <!-- END OF LISTS ROW -->
 
             </section>
-            <!-- END OF MAIN SECTION -->
+            <!-- END OF LISTS SECTION -->
+
+            <!-- GRAPH SECTION -->
+            <section>
+
+                <!-- CENTER COL -->
+                <div class="col-lg-12">
+                    <h3 class="box-title" style="margin: auto;">Tasks Progress:</h3><br>
+                    <div id="graph"></div><br>
+                </div>
+                <!-- END OF CENTER COL -->
+
+            </section>
+            <!-- END OF GRAPH SECTION -->
 
         </section><!-- /.content -->
 
